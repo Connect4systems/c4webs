@@ -247,3 +247,11 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+# Website Assets
+web_include_js = [
+    "/assets/c4web/js/related_products.js"
+]
+
+web_include_css = [
+    "/assets/c4web/css/related_products.css"
+]
