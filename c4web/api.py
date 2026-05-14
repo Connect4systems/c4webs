@@ -195,7 +195,60 @@ def validate_user_mobile_number(doc, method=None):
         return
 
     if not (doc.mobile_no or "").strip():
+        doc.mobile_no = (frappe.form_dict.get("mobile_no") or "").strip()
+
+    if not (doc.mobile_no or "").strip():
         frappe.throw("Mobile Number is mandatory when creating a new user.")
+
+
+def update_customer_mobile_number(email, mobile_no):
+    if not email or not mobile_no:
+        return
+
+    if not frappe.get_meta("Customer").has_field("mobile_no"):
+        return
+
+    customers = set(
+        frappe.get_all(
+            "Customer",
+            filters={"email_id": email},
+            pluck="name",
+        )
+    )
+
+    contact_names = frappe.get_all(
+        "Contact Email",
+        filters={"email_id": email},
+        pluck="parent",
+    )
+
+    if contact_names:
+        linked_customers = frappe.get_all(
+            "Dynamic Link",
+            filters={
+                "parenttype": "Contact",
+                "parent": ["in", contact_names],
+                "link_doctype": "Customer",
+            },
+            pluck="link_name",
+        )
+        customers.update(linked_customers)
+
+    for customer in customers:
+        frappe.db.set_value("Customer", customer, "mobile_no", mobile_no, update_modified=False)
+
+
+def update_new_customer_mobile_number(doc, method=None):
+    if not frappe.get_meta("Customer").has_field("mobile_no"):
+        return
+
+    email = (doc.get("email_id") or "").strip()
+    if not email:
+        return
+
+    mobile_no = (frappe.db.get_value("User", email, "mobile_no") or "").strip()
+    if mobile_no and not (doc.get("mobile_no") or "").strip():
+        frappe.db.set_value("Customer", doc.name, "mobile_no", mobile_no, update_modified=False)
 
 
 @frappe.whitelist(allow_guest=True)
@@ -209,5 +262,6 @@ def sign_up_with_mobile():
     email = (frappe.form_dict.get("email") or "").strip()
     if mobile_no and email and frappe.db.exists("User", email):
         frappe.db.set_value("User", email, "mobile_no", mobile_no, update_modified=False)
+        update_customer_mobile_number(email, mobile_no)
 
     return response

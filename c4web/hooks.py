@@ -30,7 +30,6 @@ app_license = "mit"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/c4web/css/c4web.css"
-web_include_js = "/assets/c4web/js/signup_mobile.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "c4web/public/scss/website"
@@ -140,6 +139,9 @@ web_include_js = "/assets/c4web/js/signup_mobile.js"
 doc_events = {
 	"User": {
 		"validate": "c4web.api.validate_user_mobile_number"
+	},
+	"Customer": {
+		"after_insert": "c4web.api.update_new_customer_mobile_number"
 	}
 }
 
@@ -255,6 +257,7 @@ override_whitelisted_methods = {
 
 # Website Assets
 web_include_js = [
+    "/assets/c4web/js/signup_mobile.js",
     "/assets/c4web/js/related_products.js"
 ]
 
