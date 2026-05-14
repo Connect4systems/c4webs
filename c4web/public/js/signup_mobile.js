@@ -1,6 +1,25 @@
 (() => {
-  const getSignupForm = () => document.querySelector("#signup_form, form[data-login-form='signup'], form[action*='sign_up']");
-  const getMobileField = () => getSignupForm()?.querySelector("input[name='mobile_no']");
+  const isSignupPage = () => {
+    const path = window.location.pathname.replace(/\/$/, "");
+    return ["/login", "/signup", "/sign-up", "/register"].includes(path)
+      || document.body.innerText.includes("Create a PIT Account");
+  };
+
+  const getEmailField = () => {
+    const fields = Array.from(document.querySelectorAll("input[type='email'], input[name='email']"));
+    return fields.find((field) => {
+      const root = field.closest("form, .page-card, .login-content, .signup-content, .web-form, section, main, div");
+      const text = root?.innerText || document.body.innerText;
+      return /sign up|create .*account/i.test(text);
+    }) || fields[0];
+  };
+
+  const getSignupRoot = () => {
+    const emailField = getEmailField();
+    return emailField?.closest("form, .page-card, .login-content, .signup-content, .web-form, section, main, div");
+  };
+
+  const getMobileField = () => getSignupRoot()?.querySelector("input[name='mobile_no']");
   const showMobileMessage = () => {
     (window.frappe && frappe.msgprint)
       ? frappe.msgprint("Please enter your mobile number.")
@@ -8,11 +27,11 @@
   };
 
   const addMobileField = () => {
-    if (window.location.pathname.replace(/\/$/, "") !== "/login") return;
-    const signupForm = getSignupForm();
-    if (!signupForm || signupForm.querySelector("input[name='mobile_no']")) return;
+    if (!isSignupPage()) return;
+    const signupRoot = getSignupRoot();
+    if (!signupRoot || signupRoot.querySelector("input[name='mobile_no']")) return;
 
-    const emailInput = signupForm.querySelector("input[type='email'], input[name='email']");
+    const emailInput = getEmailField();
     if (!emailInput) return;
 
     const mobileInput = document.createElement("input");
@@ -36,15 +55,15 @@
   };
 
   const guardSubmit = () => {
-    const signupForm = getSignupForm();
-    if (!signupForm || signupForm.dataset.mobileValidated === "1") return;
+    const signupRoot = getSignupRoot();
+    if (!signupRoot || signupRoot.dataset.mobileValidated === "1") return;
 
-    signupForm.addEventListener("submit", validateMobile);
-    signupForm.querySelectorAll("button, input[type='submit']").forEach((button) => {
+    signupRoot.addEventListener("submit", validateMobile);
+    signupRoot.querySelectorAll("button, input[type='submit']").forEach((button) => {
       button.addEventListener("click", validateMobile, true);
     });
 
-    signupForm.dataset.mobileValidated = "1";
+    signupRoot.dataset.mobileValidated = "1";
   };
 
   const patchFrappeCall = () => {
@@ -73,4 +92,6 @@
 
   document.addEventListener("DOMContentLoaded", run);
   setTimeout(run, 300);
+  setTimeout(run, 1000);
+  new MutationObserver(run).observe(document.documentElement, { childList: true, subtree: true });
 })();
