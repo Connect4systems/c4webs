@@ -137,6 +137,12 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
+doc_events = {
+	"User": {
+		"validate": "c4web.api.validate_user_mobile_number"
+	}
+}
+
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",

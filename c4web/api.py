@@ -186,3 +186,13 @@ def get_related_products(item_code=None, route=None, limit=20):
             product.price_display = f"{flt(product.price_list_rate):,.2f} LE"
 
     return products
+
+def validate_user_mobile_number(doc, method=None):
+    if not doc.is_new():
+        return
+
+    if doc.name in {"Guest", "Administrator"}:
+        return
+
+    if not (doc.mobile_no or "").strip():
+        frappe.throw("Mobile Number is mandatory when creating a new user.")
