@@ -39,7 +39,12 @@ app_license = "mit"
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {
+	"login": "public/js/signup_mobile.js",
+	"signup": "public/js/signup_mobile.js",
+	"sign-up": "public/js/signup_mobile.js",
+	"register": "public/js/signup_mobile.js",
+}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
@@ -183,7 +188,8 @@ doc_events = {
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"frappe.www.login.sign_up": "c4web.api.sign_up_with_mobile"
+	"frappe.www.login.sign_up": "c4web.api.sign_up_with_mobile",
+	"frappe.core.doctype.user.user.sign_up": "c4web.api.sign_up_with_mobile"
 }
 #
 # each overriding function accepts a `data` argument;

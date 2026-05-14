@@ -1,6 +1,67 @@
 frappe.ready(function () {
     const WHATSAPP_NUMBER = "201507447504";
 
+    function addSignupMobileNumber() {
+        if (window.location.pathname.replace(/\/$/, "") !== "/login") return;
+
+        const signupForm = $(".form-signup").first();
+        if (!signupForm.length || signupForm.find("#signup_mobile_no").length) return;
+
+        const emailInput = signupForm.find("#signup_email, input[name='email'], input[type='email']").first();
+        if (!emailInput.length) return;
+
+        const mobileInput = $(`
+            <input type="tel"
+                id="signup_mobile_no"
+                name="mobile_no"
+                class="${emailInput.attr("class") || "form-control"}"
+                placeholder="Mobile Number"
+                autocomplete="tel"
+                required>
+        `);
+
+        emailInput.after(mobileInput);
+    }
+
+    function patchSignupSubmit() {
+        if (window.c4SignupMobilePatched) return;
+        window.c4SignupMobilePatched = true;
+
+        $(".form-signup").on("submit", function (event) {
+            const mobileNo = ($("#signup_mobile_no").val() || "").trim();
+            if (!mobileNo) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                if (window.login?.set_status) {
+                    login.set_status("Please enter your mobile number.", "red");
+                } else {
+                    frappe.msgprint("Please enter your mobile number.");
+                }
+                return false;
+            }
+        });
+
+        const originalCall = window.login?.call;
+        if (originalCall && !originalCall.c4SignupMobilePatched) {
+            window.login.call = function (args) {
+                if (args?.cmd === "frappe.core.doctype.user.user.sign_up") {
+                    args.mobile_no = ($("#signup_mobile_no").val() || "").trim();
+                }
+                return originalCall.apply(this, arguments);
+            };
+            window.login.call.c4SignupMobilePatched = true;
+        }
+    }
+
+    function setupSignupMobileNumber() {
+        addSignupMobileNumber();
+        patchSignupSubmit();
+    }
+
+    setupSignupMobileNumber();
+    $(document).on("login_rendered hashchange", setupSignupMobileNumber);
+    setTimeout(setupSignupMobileNumber, 500);
+
     function renderRelatedProducts() {
         if (!window.location.pathname.includes("/products/")) return;
 

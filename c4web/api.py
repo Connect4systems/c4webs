@@ -252,14 +252,24 @@ def update_new_customer_mobile_number(doc, method=None):
 
 
 @frappe.whitelist(allow_guest=True)
-def sign_up_with_mobile():
+def sign_up_with_mobile(email=None, full_name=None, redirect_to=None):
     mobile_no = (frappe.form_dict.get("mobile_no") or "").strip()
+    email = (email or frappe.form_dict.get("email") or "").strip()
+    full_name = (full_name or frappe.form_dict.get("full_name") or "").strip()
+    redirect_to = redirect_to or frappe.form_dict.get("redirect_to")
 
-    from frappe.www.login import sign_up as frappe_sign_up
+    if not mobile_no:
+        frappe.throw("Mobile Number is mandatory when creating a new user.")
 
-    response = frappe_sign_up()
+    try:
+        from frappe.core.doctype.user.user import sign_up as frappe_sign_up
 
-    email = (frappe.form_dict.get("email") or "").strip()
+        response = frappe_sign_up(email=email, full_name=full_name, redirect_to=redirect_to)
+    except TypeError:
+        from frappe.www.login import sign_up as frappe_sign_up
+
+        response = frappe_sign_up()
+
     if mobile_no and email and frappe.db.exists("User", email):
         frappe.db.set_value("User", email, "mobile_no", mobile_no, update_modified=False)
         update_customer_mobile_number(email, mobile_no)
