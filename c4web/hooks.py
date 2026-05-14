@@ -30,7 +30,7 @@ app_license = "mit"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/c4web/css/c4web.css"
-# web_include_js = "/assets/c4web/js/c4web.js"
+web_include_js = "/assets/c4web/js/signup_mobile.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "c4web/public/scss/website"
@@ -180,9 +180,9 @@ doc_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "c4web.event.get_events"
-# }
+override_whitelisted_methods = {
+	"frappe.www.login.sign_up": "c4web.api.sign_up_with_mobile"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,

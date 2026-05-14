@@ -196,3 +196,18 @@ def validate_user_mobile_number(doc, method=None):
 
     if not (doc.mobile_no or "").strip():
         frappe.throw("Mobile Number is mandatory when creating a new user.")
+
+
+@frappe.whitelist(allow_guest=True)
+def sign_up_with_mobile():
+    mobile_no = (frappe.form_dict.get("mobile_no") or "").strip()
+
+    from frappe.www.login import sign_up as frappe_sign_up
+
+    response = frappe_sign_up()
+
+    email = (frappe.form_dict.get("email") or "").strip()
+    if mobile_no and email and frappe.db.exists("User", email):
+        frappe.db.set_value("User", email, "mobile_no", mobile_no, update_modified=False)
+
+    return response
