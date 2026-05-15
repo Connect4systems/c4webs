@@ -134,13 +134,15 @@ frappe.ready(function () {
                     </section>
                 `;
 
-                let productPageContent = $(".product-page-content").first();
+                let productCard = $("button, a").filter(function () {
+                    return $(this).text().trim().toLowerCase().includes("add to quote");
+                }).first().closest(".card, .row, .container");
 
-if (productPageContent.length) {
-    productPageContent.after(html);
-} else {
-    $("footer, .web-footer").first().before(html);
-}
+                if (productCard.length) {
+                    productCard.after(html);
+                } else {
+                    $("footer, .web-footer").first().before(html);
+                }
 
                 let scrollBox = document.getElementById("c4-related-scroll");
 
