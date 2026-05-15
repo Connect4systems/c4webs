@@ -61,6 +61,16 @@ def send_sales_invoice_pdf_now(name):
     return "OK"
 
 
+@frappe.whitelist()
+def send_payment_entry_message_now(name):
+    if not name:
+        frappe.throw("Payment Entry name is required")
+
+    doc = frappe.get_doc("Payment Entry", name)
+    send_payment_entry_message(doc)
+    return "OK"
+
+
 def send_sales_order_pdf(doc, method=None):
     try:
         _send_sales_order_pdf(doc, method=method)
@@ -73,6 +83,13 @@ def send_sales_invoice_pdf(doc, method=None):
         _send_sales_invoice_pdf(doc, method=method)
     except Exception:
         frappe.log_error(frappe.get_traceback(), "WhatsApp Sales Invoice PDF Exception")
+
+
+def send_payment_entry_message(doc, method=None):
+    try:
+        _send_payment_entry_message(doc, method=method)
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "WhatsApp Payment Entry Message Exception")
 
 
 def _send_sales_order_pdf(doc, method=None):
@@ -200,4 +217,70 @@ def _send_sales_invoice_pdf(doc, method=None):
         frappe.log_error(
             f"Sent successfully\nResponse: {response.text}\nChat ID: {chat_id}",
             "WhatsApp Sales Invoice PDF Sent",
+        )
+
+
+def _send_payment_entry_message(doc, method=None):
+    frappe.log_error(f"Triggered for Payment Entry: {doc.name}", "WhatsApp Payment Entry Message Triggered")
+
+    if doc.party_type != "Customer" or not doc.party:
+        return
+
+    token = frappe.conf.get("wapilot_token")
+    instance_id = frappe.conf.get("wapilot_instance_id") or "4027"
+
+    if not token:
+        frappe.log_error("wapilot_token missing in site_config.json", "WhatsApp Payment Entry Message")
+        return
+
+    contact_name, contact_person, mobile = get_customer_contact(doc.party)
+
+    if not mobile:
+        frappe.log_error(f"No mobile found for customer {doc.party}", "WhatsApp Payment Entry Message")
+        return
+
+    from erpnext.accounts.utils import get_balance_on
+
+    customer_name = frappe.db.get_value("Customer", doc.party, "customer_name") or doc.party
+    paid_amount = doc.paid_amount or doc.received_amount or 0
+    balance = get_balance_on(
+        party_type="Customer",
+        party=doc.party,
+        date=doc.posting_date,
+        company=doc.company,
+    )
+
+    whatsapp_no = clean_egypt_mobile(mobile)
+    chat_id = f"{whatsapp_no}@c.us"
+
+    text = (
+        f"السيد / {contact_person or customer_name or doc.party}\n\n"
+        f"نشكركم على سداد مبلغ {paid_amount} {doc.paid_from_account_currency or doc.paid_to_account_currency} "
+        f"بتاريخ {formatdate(doc.posting_date, 'dd-MM-yyyy')}.\n\n"
+        f"يرجى العلم أن الرصيد المتبقي عليكم حتى تاريخه هو {balance} {doc.paid_from_account_currency or doc.paid_to_account_currency}.\n\n"
+        f"مع خالص التحية\n"
+        f"PIT Tools"
+    )
+
+    url = f"https://api.wapilot.net/api/v2/instance{instance_id}/send-message"
+
+    headers = {
+        "token": token,
+    }
+    data = {
+        "chat_id": chat_id,
+        "text": text,
+    }
+
+    response = requests.post(url, headers=headers, json=data, timeout=60)
+
+    if response.status_code >= 400:
+        frappe.log_error(
+            f"Status: {response.status_code}\nResponse: {response.text}\nChat ID: {chat_id}",
+            "WhatsApp Payment Entry Message Failed",
+        )
+    else:
+        frappe.log_error(
+            f"Sent successfully\nResponse: {response.text}\nChat ID: {chat_id}",
+            "WhatsApp Payment Entry Message Sent",
         )
