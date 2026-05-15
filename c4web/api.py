@@ -215,11 +215,9 @@ def get_signup_mobile_number():
 
 def update_customer_mobile_number(email, mobile_no):
     if not email or not mobile_no:
-        return
+        return set()
 
-    if not frappe.get_meta("Customer").has_field("mobile_no"):
-        return
-
+    customer_meta = frappe.get_meta("Customer")
     customers = set(
         frappe.get_all(
             "Customer",
@@ -247,7 +245,59 @@ def update_customer_mobile_number(email, mobile_no):
         customers.update(linked_customers)
 
     for customer in customers:
-        frappe.db.set_value("Customer", customer, "mobile_no", mobile_no, update_modified=False)
+        values = {}
+        if customer_meta.has_field("mobile_no"):
+            values["mobile_no"] = mobile_no
+        if customer_meta.has_field("phone"):
+            values["phone"] = mobile_no
+        if values:
+            frappe.db.set_value("Customer", customer, values, update_modified=False)
+
+    return customers
+
+
+def get_default_customer_group():
+    return (
+        frappe.db.get_single_value("Selling Settings", "customer_group")
+        or frappe.defaults.get_global_default("customer_group")
+        or frappe.db.get_value("Customer Group", {"is_group": 0}, "name")
+        or "All Customer Groups"
+    )
+
+
+def get_default_territory():
+    return (
+        frappe.defaults.get_global_default("territory")
+        or frappe.db.get_value("Territory", {"is_group": 0}, "name")
+        or "All Territories"
+    )
+
+
+def ensure_signup_customer(email, full_name, mobile_no):
+    if not email or not frappe.db.exists("User", email):
+        return
+
+    if update_customer_mobile_number(email, mobile_no):
+        return
+
+    customer_meta = frappe.get_meta("Customer")
+    customer = frappe.new_doc("Customer")
+    customer.customer_name = full_name or email
+
+    if customer_meta.has_field("customer_type"):
+        customer.customer_type = "Individual"
+    if customer_meta.has_field("customer_group"):
+        customer.customer_group = get_default_customer_group()
+    if customer_meta.has_field("territory"):
+        customer.territory = get_default_territory()
+    if customer_meta.has_field("email_id"):
+        customer.email_id = email
+    if customer_meta.has_field("mobile_no"):
+        customer.mobile_no = mobile_no
+    if customer_meta.has_field("phone"):
+        customer.phone = mobile_no
+
+    customer.insert(ignore_permissions=True)
 
 
 def update_new_customer_mobile_number(doc, method=None):
@@ -286,6 +336,6 @@ def sign_up_with_mobile(email=None, full_name=None, redirect_to=None, mobile_no=
 
     if mobile_no and email and frappe.db.exists("User", email):
         frappe.db.set_value("User", email, "mobile_no", mobile_no, update_modified=False)
-        update_customer_mobile_number(email, mobile_no)
+        ensure_signup_customer(email, full_name, mobile_no)
 
     return response
