@@ -195,10 +195,20 @@ def validate_user_mobile_number(doc, method=None):
         return
 
     if not (doc.mobile_no or "").strip():
-        doc.mobile_no = (frappe.form_dict.get("mobile_no") or "").strip()
+        doc.mobile_no = get_signup_mobile_number()
 
     if not (doc.mobile_no or "").strip():
         frappe.throw("Mobile Number is mandatory when creating a new user.")
+
+
+def get_signup_mobile_number():
+    return (
+        frappe.form_dict.get("mobile_no")
+        or frappe.local.form_dict.get("mobile_no")
+        or frappe.request.form.get("mobile_no")
+        or frappe.request.values.get("mobile_no")
+        or ""
+    ).strip()
 
 
 def update_customer_mobile_number(email, mobile_no):
@@ -253,7 +263,7 @@ def update_new_customer_mobile_number(doc, method=None):
 
 @frappe.whitelist(allow_guest=True)
 def sign_up_with_mobile(email=None, full_name=None, redirect_to=None):
-    mobile_no = (frappe.form_dict.get("mobile_no") or "").strip()
+    mobile_no = get_signup_mobile_number()
     email = (email or frappe.form_dict.get("email") or "").strip()
     full_name = (full_name or frappe.form_dict.get("full_name") or "").strip()
     redirect_to = redirect_to or frappe.form_dict.get("redirect_to")
