@@ -37,6 +37,10 @@ def get_customer_contact(customer):
     return contact_name, contact_person, mobile
 
 
+def get_sales_order_print_format():
+    return frappe.get_meta("Sales Order").default_print_format or "Standard"
+
+
 @frappe.whitelist()
 def send_sales_order_pdf_now(name):
     if not name:
@@ -85,7 +89,7 @@ def _send_sales_order_pdf(doc, method=None):
     html = frappe.get_print(
         doctype="Sales Order",
         name=doc.name,
-        print_format="Standard",
+        print_format=get_sales_order_print_format(),
         no_letterhead=0,
     )
 
