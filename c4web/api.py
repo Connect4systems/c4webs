@@ -1,5 +1,6 @@
 import frappe
 from frappe.utils import flt, cint
+from frappe.utils.pdf import get_pdf
 
 
 def get_website_stock_settings():
@@ -59,21 +60,35 @@ def get_item_price(item_code):
     )
 
     return flt(rate[0][0]) if rate else 0
-    rate = frappe.db.sql(
-        """
-        SELECT price_list_rate
-        FROM `tabItem Price`
-        WHERE
-            item_code = %s
-            AND price_list = 'Standard Selling'
-            AND selling = 1
-        ORDER BY modified DESC
-        LIMIT 1
-        """,
-        item_code
-    )
 
-    return flt(rate[0][0]) if rate else 0
+
+@frappe.whitelist(allow_guest=True)
+def sales_order_pdf(name=None, key=None):
+    secret_key = frappe.conf.get("whatsapp_pdf_key")
+
+    if not secret_key:
+        frappe.throw("whatsapp_pdf_key is not configured in site_config.json")
+
+    if key != secret_key:
+        frappe.throw("Invalid key")
+
+    if not name:
+        frappe.throw("Sales Order name is required")
+
+    if not frappe.db.exists("Sales Order", name):
+        frappe.throw("Sales Order not found")
+
+    html = frappe.get_print(
+        doctype="Sales Order",
+        name=name,
+        print_format="Standard",
+        no_letterhead=0,
+    )
+    pdf = get_pdf(html)
+
+    frappe.local.response.filename = f"{name}.pdf"
+    frappe.local.response.filecontent = pdf
+    frappe.local.response.type = "download"
 
 
 @frappe.whitelist(allow_guest=True)
