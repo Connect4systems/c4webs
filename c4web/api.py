@@ -264,8 +264,8 @@ def update_new_customer_mobile_number(doc, method=None):
 
 
 @frappe.whitelist(allow_guest=True)
-def sign_up_with_mobile(email=None, full_name=None, redirect_to=None):
-    mobile_no = get_signup_mobile_number()
+def sign_up_with_mobile(email=None, full_name=None, redirect_to=None, mobile_no=None):
+    mobile_no = (mobile_no or get_signup_mobile_number()).strip()
     email = (email or frappe.form_dict.get("email") or "").strip()
     full_name = (full_name or frappe.form_dict.get("full_name") or "").strip()
     redirect_to = redirect_to or frappe.form_dict.get("redirect_to")
