@@ -83,7 +83,7 @@ def _send_sales_order_pdf(doc, method=None):
         f"رقم أمر البيع: {doc.name}\n\n"
         f"إجمالي الطلب: {doc.grand_total} {doc.currency}\n\n"
         f"مع خالص التحية\n"
-        f"Connect 4 Systems"
+        f"PIT Tools"
     )
 
     html = frappe.get_print(
