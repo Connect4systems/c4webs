@@ -177,7 +177,7 @@ def _send_sales_invoice_pdf(doc, method=None):
 
     caption = (
         f"السيد {contact_person or doc.customer_name or doc.customer}\n\n"
-        f"نشكركم على طلبكم منتجاتنا بتاريخ {formatdate(doc.posting_date, 'dd-MM-yyyy')}.\n\n"
+        f"تم إصدار فاتورة مبيعات بتاريخ {formatdate(doc.posting_date, 'dd-MM-yyyy')}.\n\n"
         f"رقم الفاتورة: {doc.name}\n\n"
         f"إجمالي الفاتورة: {doc.grand_total} {doc.currency}\n\n"
         f"مع خالص التحية\n"
