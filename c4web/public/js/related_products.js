@@ -24,6 +24,34 @@ frappe.ready(function () {
     }
 
     function patchSignupSubmit() {
+        const signupForm = $(".form-signup").first().get(0);
+        if (signupForm && !signupForm.c4DirectSignupPatched) {
+            signupForm.addEventListener("submit", function (event) {
+                const mobileNo = ($("#signup_mobile_no").val() || "").trim();
+                if (!mobileNo) return;
+
+                event.preventDefault();
+                event.stopImmediatePropagation();
+
+                const args = {
+                    cmd: "c4web.api.sign_up_with_mobile",
+                    email: ($("#signup_email").val() || "").trim(),
+                    redirect_to: frappe.utils.sanitise_redirect(frappe.utils.get_url_arg("redirect-to")),
+                    full_name: frappe.utils.xss_sanitise(($("#signup_fullname").val() || "").trim()),
+                    mobile_no: mobileNo
+                };
+
+                if (!args.email || !validate_email(args.email) || !args.full_name) {
+                    login.set_status("Please enter a valid email and full name.", "red");
+                    return false;
+                }
+
+                login.call(args);
+                return false;
+            }, true);
+            signupForm.c4DirectSignupPatched = true;
+        }
+
         $(".form-signup").off("submit.c4SignupMobile").on("submit.c4SignupMobile", function (event) {
             const mobileNo = ($("#signup_mobile_no").val() || "").trim();
             if (!mobileNo) {

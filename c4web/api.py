@@ -203,6 +203,8 @@ def validate_user_mobile_number(doc, method=None):
 
 def get_signup_mobile_number():
     return (
+        getattr(frappe.flags, "signup_mobile_no", None)
+        or
         frappe.form_dict.get("mobile_no")
         or frappe.local.form_dict.get("mobile_no")
         or frappe.request.form.get("mobile_no")
@@ -270,6 +272,8 @@ def sign_up_with_mobile(email=None, full_name=None, redirect_to=None):
 
     if not mobile_no:
         frappe.throw("Mobile Number is mandatory when creating a new user.")
+
+    frappe.flags.signup_mobile_no = mobile_no
 
     try:
         from frappe.core.doctype.user.user import sign_up as frappe_sign_up
