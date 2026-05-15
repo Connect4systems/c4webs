@@ -37,7 +37,26 @@ def get_customer_contact(customer):
     return contact_name, contact_person, mobile
 
 
+@frappe.whitelist()
+def send_sales_order_pdf_now(name):
+    if not name:
+        frappe.throw("Sales Order name is required")
+
+    doc = frappe.get_doc("Sales Order", name)
+    send_sales_order_pdf(doc)
+    return "OK"
+
+
 def send_sales_order_pdf(doc, method=None):
+    try:
+        _send_sales_order_pdf(doc, method=method)
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "WhatsApp Sales Order PDF Exception")
+
+
+def _send_sales_order_pdf(doc, method=None):
+    frappe.log_error(f"Triggered for Sales Order: {doc.name}", "WhatsApp Sales Order PDF Triggered")
+
     token = frappe.conf.get("wapilot_token")
     instance_id = frappe.conf.get("wapilot_instance_id") or "4027"
 
