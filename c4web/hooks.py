@@ -137,6 +137,9 @@ app_license = "mit"
 # Hook on document methods and events
 
 doc_events = {
+	"Sales Invoice": {
+		"on_submit": "c4web.whatsapp_sales_order.send_sales_invoice_pdf"
+	},
 	"Sales Order": {
 		"on_submit": "c4web.whatsapp_sales_order.send_sales_order_pdf"
 	},

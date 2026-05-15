@@ -37,8 +37,8 @@ def get_customer_contact(customer):
     return contact_name, contact_person, mobile
 
 
-def get_sales_order_print_format():
-    return frappe.get_meta("Sales Order").default_print_format or "Standard"
+def get_default_print_format(doctype):
+    return frappe.get_meta(doctype).default_print_format or "Standard"
 
 
 @frappe.whitelist()
@@ -51,11 +51,28 @@ def send_sales_order_pdf_now(name):
     return "OK"
 
 
+@frappe.whitelist()
+def send_sales_invoice_pdf_now(name):
+    if not name:
+        frappe.throw("Sales Invoice name is required")
+
+    doc = frappe.get_doc("Sales Invoice", name)
+    send_sales_invoice_pdf(doc)
+    return "OK"
+
+
 def send_sales_order_pdf(doc, method=None):
     try:
         _send_sales_order_pdf(doc, method=method)
     except Exception:
         frappe.log_error(frappe.get_traceback(), "WhatsApp Sales Order PDF Exception")
+
+
+def send_sales_invoice_pdf(doc, method=None):
+    try:
+        _send_sales_invoice_pdf(doc, method=method)
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "WhatsApp Sales Invoice PDF Exception")
 
 
 def _send_sales_order_pdf(doc, method=None):
@@ -89,7 +106,7 @@ def _send_sales_order_pdf(doc, method=None):
     html = frappe.get_print(
         doctype="Sales Order",
         name=doc.name,
-        print_format=get_sales_order_print_format(),
+        print_format=get_default_print_format("Sales Order"),
         no_letterhead=0,
     )
 
@@ -119,4 +136,68 @@ def _send_sales_order_pdf(doc, method=None):
         frappe.log_error(
             f"Sent successfully\nResponse: {response.text}\nChat ID: {chat_id}",
             "WhatsApp Sales Order PDF Sent",
+        )
+
+
+def _send_sales_invoice_pdf(doc, method=None):
+    frappe.log_error(f"Triggered for Sales Invoice: {doc.name}", "WhatsApp Sales Invoice PDF Triggered")
+
+    token = frappe.conf.get("wapilot_token")
+    instance_id = frappe.conf.get("wapilot_instance_id") or "4027"
+
+    if not token:
+        frappe.log_error("wapilot_token missing in site_config.json", "WhatsApp Sales Invoice PDF")
+        return
+
+    contact_name, contact_person, mobile = get_customer_contact(doc.customer)
+
+    if not mobile:
+        frappe.log_error(f"No mobile found for customer {doc.customer}", "WhatsApp Sales Invoice PDF")
+        return
+
+    whatsapp_no = clean_egypt_mobile(mobile)
+    chat_id = f"{whatsapp_no}@c.us"
+
+    caption = (
+        f"السيد {contact_person or doc.customer_name or doc.customer}\n\n"
+        f"نشكركم على طلبكم منتجاتنا بتاريخ {formatdate(doc.posting_date, 'dd-MM-yyyy')}.\n\n"
+        f"رقم الفاتورة: {doc.name}\n\n"
+        f"إجمالي الفاتورة: {doc.grand_total} {doc.currency}\n\n"
+        f"مع خالص التحية\n"
+        f"PIT Tools"
+    )
+
+    html = frappe.get_print(
+        doctype="Sales Invoice",
+        name=doc.name,
+        print_format=get_default_print_format("Sales Invoice"),
+        no_letterhead=0,
+    )
+
+    pdf_content = get_pdf(html)
+    filename = f"Sales Invoice {doc.name}.pdf"
+    url = f"https://api.wapilot.net/api/v2/instance{instance_id}/send-file"
+
+    headers = {
+        "token": token,
+    }
+    data = {
+        "chat_id": chat_id,
+        "caption": caption,
+    }
+    files = {
+        "media": (filename, pdf_content, "application/pdf"),
+    }
+
+    response = requests.post(url, headers=headers, data=data, files=files, timeout=60)
+
+    if response.status_code >= 400:
+        frappe.log_error(
+            f"Status: {response.status_code}\nResponse: {response.text}\nChat ID: {chat_id}",
+            "WhatsApp Sales Invoice PDF Failed",
+        )
+    else:
+        frappe.log_error(
+            f"Sent successfully\nResponse: {response.text}\nChat ID: {chat_id}",
+            "WhatsApp Sales Invoice PDF Sent",
         )
