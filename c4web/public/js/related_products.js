@@ -24,10 +24,7 @@ frappe.ready(function () {
     }
 
     function patchSignupSubmit() {
-        if (window.c4SignupMobilePatched) return;
-        window.c4SignupMobilePatched = true;
-
-        $(".form-signup").on("submit", function (event) {
+        $(".form-signup").off("submit.c4SignupMobile").on("submit.c4SignupMobile", function (event) {
             const mobileNo = ($("#signup_mobile_no").val() || "").trim();
             if (!mobileNo) {
                 event.preventDefault();
@@ -51,6 +48,23 @@ frappe.ready(function () {
             };
             window.login.call.c4SignupMobilePatched = true;
         }
+
+        const originalFrappeCall = window.frappe?.call;
+        if (originalFrappeCall && !originalFrappeCall.c4SignupMobilePatched) {
+            window.frappe.call = function (options) {
+                if (
+                    options?.args?.cmd === "frappe.core.doctype.user.user.sign_up"
+                    || options?.method === "frappe.core.doctype.user.user.sign_up"
+                    || options?.method === "c4web.api.sign_up_with_mobile"
+                ) {
+                    options.args = options.args || {};
+                    options.args.mobile_no = ($("#signup_mobile_no").val() || "").trim();
+                }
+
+                return originalFrappeCall.apply(this, arguments);
+            };
+            window.frappe.call.c4SignupMobilePatched = true;
+        }
     }
 
     function setupSignupMobileNumber() {
@@ -61,6 +75,7 @@ frappe.ready(function () {
     setupSignupMobileNumber();
     $(document).on("login_rendered hashchange", setupSignupMobileNumber);
     setTimeout(setupSignupMobileNumber, 500);
+    setTimeout(setupSignupMobileNumber, 1500);
 
     function renderRelatedProducts() {
         if (!window.location.pathname.includes("/products/")) return;
