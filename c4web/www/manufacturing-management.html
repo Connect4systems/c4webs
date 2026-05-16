@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إدارة التصنيع والتسعير غير النمطي | ERPNext + C4Factory + C4Pricing</title>
+    <meta
+      name="description"
+      content="إدارة التصنيع والتسعير غير النمطي في كونكت 4: منهجية عملية مبنية على ERPNext وC4Factory وc4pricing لربط Costing Note وBOQ وPrice Request وإنشاء BOM وItem Price ضمن دورة تشغيل واحدة."
+    />
+    <!-- SEO: Auto Meta Start -->
+    <link rel="icon" href="/files/logo-erp.png" type="image/png" />
+    <link rel="canonical" href="https://connect4systems.com/manufacturing-management" />
+    <link rel="alternate" hreflang="ar-eg" href="https://connect4systems.com/manufacturing-management" />
+    <link rel="alternate" hreflang="x-default" href="https://connect4systems.com/manufacturing-management" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Connect 4 Systems" />
+    <meta name="keywords" content="ERP, CRM, AI, Digital Transformation, Frappe, ERPNext, Connect 4 Systems" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Connect 4 Systems" />
+    <meta property="og:title" content="إدارة التصنيع والتسعير غير النمطي | ERPNext + C4Factory + C4Pricing" />
+    <meta property="og:description" content="إدارة التصنيع والتسعير غير النمطي في كونكت 4: منهجية عملية مبنية على ERPNext وC4Factory وc4pricing لربط Costing Note وBOQ وPrice Request وإنشاء BOM وItem Price ضمن دورة تشغيل واحدة." />
+    <meta property="og:url" content="https://connect4systems.com/manufacturing-management" />
+    <meta property="og:image" content="https://images.pexels.com/photos/3912471/pexels-photo-3912471.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+    <meta property="og:image:alt" content="إدارة التصنيع والتسعير غير النمطي | ERPNext + C4Factory + C4Pricing" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="إدارة التصنيع والتسعير غير النمطي | ERPNext + C4Factory + C4Pricing" />
+    <meta name="twitter:description" content="إدارة التصنيع والتسعير غير النمطي في كونكت 4: منهجية عملية مبنية على ERPNext وC4Factory وc4pricing لربط Costing Note وBOQ وPrice Request وإنشاء BOM وItem Price ضمن دورة تشغيل واحدة." />
+    <meta name="twitter:image" content="https://images.pexels.com/photos/3912471/pexels-photo-3912471.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+    <script type="application/ld+json">
+      {
+          "@context":  "https://schema.org",
+          "@graph":  [
+                         {
+                             "@type":  "Organization",
+                             "@id":  "https://connect4systems.com/#organization",
+                             "name":  "Connect 4 Systems",
+                             "url":  "https://connect4systems.com/",
+                             "logo":  {
+                                          "@type":  "ImageObject",
+                                          "url":  "https://connect4systems.com/files/logo-erp.png"
+                                      },
+                             "sameAs":  [
+                                            "https://www.facebook.com/connect4egypt",
+                                            "https://www.linkedin.com/company/7695997/",
+                                            "https://www.tiktok.com/@connect4systems",
+                                            "https://www.youtube.com/@ConnectSystems-ERP"
+                                        ]
+                         },
+                         {
+                             "@type":  "WebPage",
+                             "@id":  "https://connect4systems.com/manufacturing-management#webpage",
+                             "url":  "https://connect4systems.com/manufacturing-management",
+                             "name":  "إدارة التصنيع والتسعير غير النمطي | ERPNext + C4Factory + C4Pricing",
+                             "description":  "إدارة التصنيع والتسعير غير النمطي في كونكت 4: منهجية عملية مبنية على ERPNext وC4Factory وc4pricing لربط Costing Note وBOQ وPrice Request وإنشاء BOM وItem Price ضمن دورة تشغيل واحدة.",
+                             "inLanguage":  "ar-EG",
+                             "isPartOf":  {
+                                              "@type":  "WebSite",
+                                              "@id":  "https://connect4systems.com/#website",
+                                              "url":  "https://connect4systems.com/",
+                                              "name":  "Connect 4 Systems"
+                                          },
+                             "publisher":  {
+                                               "@id":  "https://connect4systems.com/#organization"
+                                           }
+                         }
+                     ]
+      }
+    </script>
+    <!-- SEO: Auto Meta End -->
+    <link rel="stylesheet" href="/assets/c4web/css/style.css" />
+    <script defer src="/assets/c4web/js/app.js"></script>
+  </head>
+  <body>
+    <div class="progress-line" data-scroll-progress></div>
+
+    <header class="site-header">
+      <div class="container header-wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <img
+              class="brand-logo"
+              src="{{ c4_logo_url or '/files/logo-erp.png' }}"
+              alt="Connect 4 Systems Logo"
+              onerror="this.onerror=null;this.src='/files/logo.png';"
+            />
+          </span>
+          <span class="brand-title">
+            <strong>Connect 4 Systems</strong>
+            <small>ERP, AI, Business Development</small>
+          </span>
+        </a>
+
+        <button class="menu-button" type="button" aria-label="فتح القائمة" aria-expanded="false" data-menu-toggle>
+          ☰
+        </button>
+
+        <div class="nav-panel" data-nav-shell>
+          <nav class="main-nav" aria-label="القائمة الرئيسية">
+            <a class="c4-nav-link" href="/">الرئيسية</a>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">البرامج السحابية</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/hr">ادارة الموارد البشرية</a>
+                <a href="/rent-app">ادارة الايجارات</a>
+                <a href="/finance-management">الادارة المالية</a>
+                <a href="/trade">إدارة المبيعات</a>
+                <a href="/crm">إدارة خدمة العملاء</a>
+                <a href="/inventory-management">إدارة المخازن</a>
+                <a href="/manufacturing-management">إدارة التصنيع</a>
+                <a href="/asset-management">إدارة الأصول</a>
+                <a href="/procurement-management">إدارة المشتريات</a>
+                <a href="/construction-management">إدارة المقاولات</a>
+              </div>
+            </div>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">الحلول الكاملة</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/retail-system">المحلات التجارية</a>
+                <a href="/trade">الشركات التجارية</a>
+                <a href="/rental-companies">شركات التأجير</a>
+                <a href="/factory">المصانع</a>
+                <a href="/construction">المقاولات</a>
+              </div>
+            </div>
+
+            <a class="c4-nav-link" href="/catalog">خطط الأسعار</a>
+          </nav>
+          <a class="btn btn-primary" href="/contact">طلب عرض</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-tight">
+        <div class="container hero-grid">
+          <div class="reveal">
+            <div class="hero-tag-row">
+              <span class="badge badge-brand">Manufacturing + C4Pricing</span>
+              <span class="badge badge-ai">ERPNext v15 + C4Factory</span>
+            </div>
+            <h1 class="hero-title">إدارة التصنيع والتسعير غير النمطي في مسار تشغيلي واحد</h1>
+            <p class="hero-text">
+              تم بناء هذا المسار على منطق تطبيق <strong>c4pricing</strong> لتمكين تسعير المنتجات غير النمطية
+              وربطه مباشرة بدورة التصنيع: من Opportunity وContract BOM Request، إلى Costing Note وBOQ،
+              ثم Ask Price وPrice Request وإنشاء Item Price قبل التنفيذ الفعلي على أوامر التشغيل.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/contact">احجز عرض إدارة التصنيع والتسعير</a>
+              <a class="btn btn-outline" href="#manufacturing-features">استكشف المنهجية</a>
+            </div>
+            <div class="metric-row">
+              <article class="stat-card">
+                <strong data-counter="57" data-suffix="%">0</strong>
+                <span>تسريع تجهيز عروض المنتجات غير النمطية</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="46" data-suffix="%">0</strong>
+                <span>رفع دقة تكلفة البند من أول تسعير</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="33" data-suffix="%">0</strong>
+                <span>تقليل فروقات التسعير بين العرض والتنفيذ</span>
+              </article>
+            </div>
+          </div>
+
+          <aside class="hero-visual reveal" data-float="8">
+            <img
+              class="hero-main-image"
+              src="https://images.pexels.com/photos/3912471/pexels-photo-3912471.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="إدارة التصنيع والتسعير"
+            />
+            <div class="hero-overlay">
+              <div class="hero-panel">
+                <h3>Costing Note Engine</h3>
+                <p>احتساب تلقائي لسعر البيع المستهدف حسب التكلفة والهامش.</p>
+              </div>
+              <div class="hero-panel">
+                <h3>BOQ + Ask Price</h3>
+                <p>تحويل البنود المختارة إلى Price Request وربطها بالمشتريات.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="manufacturing-features" class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">محاور c4pricing داخل التصنيع</span>
+            <h2>من التقاط مواصفات المنتج إلى سعر بيع معتمد وBOM قابل للتنفيذ</h2>
+          </div>
+
+          <div class="cards cards-4">
+            <article class="card reveal">
+              <div class="card-image">
+                <img
+                  src="https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  alt="تصنيف خطوط المنتجات"
+                />
+              </div>
+              <h3>Item Lines + Selector</h3>
+              <p>دعم خطوط متعددة مثل Standard Lines وCustomized Product مع فلترة ذكية.</p>
+              <ul class="list-check">
+                <li>اختيار البنود حسب Item Group وMaterial Line.</li>
+                <li>فلترة بالأبعاد: Width / Height / Depth.</li>
+                <li>إدراج مباشر لبنود التسعير داخل Opportunity وQuotation.</li>
+              </ul>
+            </article>
+
+            <article class="card reveal">
+              <div class="card-image">
+                <img
+                  src="https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  alt="منهجية التسعير غير النمطي"
+                />
+              </div>
+              <h3>Costing Note Logic</h3>
+              <p>منطق تسعير غير نمطي يعتمد التكلفة الفعلية وهامش الربح لكل بند.</p>
+              <ul class="list-check">
+                <li>احتساب <code>target_selling_price</code> تلقائيا لكل سطر.</li>
+                <li>تجميع <code>total_cost</code> و<code>total_target_selling_price</code>.</li>
+                <li>ترحيل سعر البيع المستهدف إلى Opportunity عند اعتماد Costing Note.</li>
+              </ul>
+            </article>
+
+            <article class="card reveal">
+              <div class="card-image">
+                <img
+                  src="https://images.pexels.com/photos/3846262/pexels-photo-3846262.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  alt="بناء BOQ وBOM"
+                />
+              </div>
+              <h3>BOQ + Contract BOM</h3>
+              <p>تحويل مواصفات العميل إلى قوائم خامات قابلة للتنفيذ والمتابعة.</p>
+              <ul class="list-check">
+                <li>جلب بنود Sales Order إلى Contract BOM Item تلقائيا.</li>
+                <li>إنشاء BOM من السطر مباشرة عند غياب BOM افتراضي.</li>
+                <li>إضافة مكونات Wood / Metal / Glass / Fabric للتركيبة الأولية.</li>
+              </ul>
+            </article>
+
+            <article class="card reveal">
+              <div class="card-image">
+                <img
+                  src="https://images.pexels.com/photos/4482900/pexels-photo-4482900.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  alt="حلقة طلب السعر والمشتريات"
+                />
+              </div>
+              <h3>Ask Price Cycle</h3>
+              <p>حلقة تسعير شرائية تغلق الفجوة بين تقدير التكلفة والسعر الحقيقي.</p>
+              <ul class="list-check">
+                <li>تحديد صفوف BOQ وإرسالها إلى Price Request حسب Cost Type.</li>
+                <li>إنشاء أو تحديث Item Price بقائمة Standard Buying.</li>
+                <li>تحديث سطر BOQ المرتبط بنفس السعر بشكل فوري.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container tab-shell reveal">
+          <div class="tab-nav" role="tablist" aria-label="منهجية التسعير والتصنيع">
+            <button class="tab-button active" type="button" data-tab-target="pricing-method" aria-selected="true">التسعير غير النمطي</button>
+            <button class="tab-button" type="button" data-tab-target="bom-method" aria-selected="false">بناء BOM وBOQ</button>
+            <button class="tab-button" type="button" data-tab-target="execution-flow" aria-selected="false">الربط مع التنفيذ</button>
+          </div>
+
+          <article class="tab-panel active" data-tab-panel="pricing-method">
+            <figure class="tab-media">
+              <img
+                src="https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt="طريقة تسعير المنتجات غير النمطية"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>طريقة التسعير داخل Costing Note</h3>
+              <p>
+                يعتمد c4pricing على معادلة واضحة لسعر البيع المستهدف لكل بند غير نمطي،
+                مع فصل تكلفة البند عن هامش الربح ثم تجميع النتائج على مستوى المستند بالكامل.
+              </p>
+              <ul class="list-check">
+                <li><strong>سعر البيع المستهدف</strong> = cost + (cost x default_profit_margin / 100).</li>
+                <li><strong>إجمالي تكلفة السطر</strong> = cost x qty و<strong>إجمالي البيع</strong> = target_selling_price x qty.</li>
+                <li>حساب <code>total_profit</code> و<code>profit_margin</code> تلقائيا على مستوى Costing Note.</li>
+                <li>عند اعتماد المستند يتم دفع الأسعار إلى Opportunity لضمان اتساق العرض.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="bom-method">
+            <figure class="tab-media">
+              <img
+                src="https://images.pexels.com/photos/3862627/pexels-photo-3862627.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt="إنشاء BOM وBOQ"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>إنشاء BOM/BOQ من مواصفات العميل</h3>
+              <p>
+                يبدأ المسار بجلب بنود أمر البيع إلى Contract BOM Request، ثم ربط البنود بـ BOQ أو
+                إنشاء BOM تلقائي عند عدم وجود BOM افتراضي، مع دعم المواصفات الفنية للمواد.
+              </p>
+              <ul class="list-check">
+                <li>تعيين BOM الافتراضي آليا عند اختيار الصنف داخل Contract BOM Item.</li>
+                <li>زر <code>create_bom</code> ينشئ BOM فعلي من مكونات Wood/Metal/Glass/Fabric.</li>
+                <li>حساب كمية BOM Item حسب Measurement Type (Area/Perimeter/Value/Unit).</li>
+                <li>تطبيق BOQ Template لنسخ البنود والكميات بسرعة مع الحفاظ على الهوامش.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="execution-flow">
+            <figure class="tab-media">
+              <img
+                src="https://images.pexels.com/photos/4481326/pexels-photo-4481326.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt="تكامل التسعير مع التنفيذ والتوريد"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>إغلاق حلقة التكلفة قبل أمر التشغيل</h3>
+              <p>
+                قبل التنفيذ النهائي، يمكن تحديث تكلفة صفوف BOQ من مصادر مختلفة ثم إرسال البنود
+                المختارة إلى Price Request، بما يضمن اعتماد تكلفة شراء واقعية قبل الإنتاج.
+              </p>
+              <ul class="list-check">
+                <li>تحديث التكاليف من Price List أو Valuation Rate أو Last Purchase Rate.</li>
+                <li>زر Ask Price ينشئ Price Request حسب Department (Cost Type).</li>
+                <li>زر Create Item Price ينشئ/يحدث Item Price ويعيد تغذية BOQ بنفس السعر.</li>
+                <li>نقل مكونات التسعير المخصصة إلى Quotation ثم Sales Order بدون فقدان البيانات.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">طريقة التسعير خطوة بخطوة</span>
+            <h2>دورة كاملة للمنتج غير النمطي من الطلب إلى سعر شراء وسعر بيع</h2>
+          </div>
+
+          <div class="timeline reveal">
+            <article class="timeline-item">
+              <h4>1) التقاط مواصفات المنتج</h4>
+              <p>إدخال البند ضمن Item Line المناسب مع الأبعاد والخامات والملاحظات الفنية.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>2) إنشاء Costing Note حسب الخط</h4>
+              <p>استخدام <code>create_costing_note_by_line</code> لتجميع البنود المستهدفة للتسعير.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>3) ربط كل بند بـ BOQ</h4>
+              <p>زر BOQ داخل Costing Note Items ينشئ BOQ جديدا أو يعيد استخدام الموجود.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>4) حساب التكلفة وسعر البيع</h4>
+              <p>تحديث <code>cost</code> من BOQ ثم احتساب <code>target_selling_price</code> تلقائيا.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>5) Ask Price للمشتريات</h4>
+              <p>اختيار صفوف BOQ وإرسالها إلى Price Request حسب القسم المسؤول عن التوريد.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>6) اعتماد الأسعار وإقفال الحلقة</h4>
+              <p>إنشاء Item Price (Standard Buying) وتحديث BOQ ثم ترحيل السعر للبيع والتشغيل.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight" id="napata-success">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">قصة نجاح في إدارة التصنيع غير النمطي لكل مشروع</span>
+            <h2>مصانع نباتا لأثاث الحدائق والمجسمات</h2>
+          </div>
+
+          <div class="contact-layout">
+            <article class="card reveal">
+              <h3>الأثر التشغيلي باختصار</h3>
+              <p class="text-muted">
+                ساعدت منصة Connect 4 مصانع نباتا على ضبط التصنيع غير النمطي لكل مشروع
+                عبر ربط المواصفات الهندسية بتكلفة الخامات وخطة التشغيل الفعلية قبل التنفيذ.
+              </p>
+              <ul class="list-check">
+                <li>تحويل متطلبات كل مشروع إلى تسعير فني قابل للتنفيذ.</li>
+                <li>ربط BOM/BOQ بخامات الأعمال الخاصة بالأثاث والمجسمات.</li>
+                <li>تحكم أوضح في تكلفة المشروع من التخطيط وحتى التسليم.</li>
+              </ul>
+            </article>
+
+            <aside class="card reveal">
+              <div class="card-image card-image--icon card-image--logo">
+                <img src="/files/napata.webp" alt="شعار مصانع نباتا لأثاث الحدائق والمجسمات" />
+              </div>
+              <h4>Napata</h4>
+              <p class="text-muted">مصانع نباتا لأثاث الحدائق والمجسمات</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="cards">
+            <article class="card reveal">
+              <h3>للفريق الفني والهندسي</h3>
+              <ul class="list-check">
+                <li>تحويل المواصفات المعقدة إلى بنود قابلة للتكلفة والتنفيذ.</li>
+                <li>توحيد تعريف الخامات عبر Wood/Metal/Glass/Fabric.</li>
+                <li>تقليل زمن الرجوع بين التصميم والتسعير.</li>
+              </ul>
+            </article>
+
+            <article class="card reveal">
+              <h3>للمشتريات والتكلفة</h3>
+              <ul class="list-check">
+                <li>قناة Ask Price منظمة حسب Cost Type.</li>
+                <li>إنشاء Item Price فعلي لكل بند مطلوب شراؤه.</li>
+                <li>إغلاق فجوة التكلفة التقديرية قبل التنفيذ.</li>
+              </ul>
+            </article>
+
+            <article class="card reveal">
+              <h3>للمبيعات والإدارة</h3>
+              <ul class="list-check">
+                <li>أسعار عروض مبنية على تكلفة حقيقية لا تقدير تقريبي.</li>
+                <li>اتساق بين Opportunity وQuotation وSales Order.</li>
+                <li>رؤية ربحية أفضل للمنتجات غير النمطية قبل الالتزام مع العميل.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="cta-band reveal">
+            <div>
+              <h3>هل تريد تسعير المنتجات غير النمطية بدقة قبل بدء التصنيع؟</h3>
+              <p>
+                ننفذ لك مسارا متكاملا يجمع ERPNext وC4Factory وC4Pricing
+                لربط التسعير الفني بالمشتريات ثم أوامر التشغيل بدون فجوات بيانات.
+              </p>
+            </div>
+            <a class="btn btn-accent" href="/contact">ابدأ مشروع التصنيع والتسعير</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- lead-request-section:start -->
+      <section class="section section-tight" id="lead-request">
+        <div class="container contact-layout">
+          <article class="form-card reveal">
+            <h2>أرسل طلبك الآن</h2>
+            <p class="text-muted">املأ النموذج التالي وسيتواصل معك فريقنا خلال يوم عمل.</p>
+
+            <form class="form-grid" data-lead-form novalidate>
+              <div class="field">
+                <label for="leadreq-name">الاسم</label>
+                <input id="leadreq-name" name="name" type="text" placeholder="الاسم الكامل" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-company">اسم الشركة</label>
+                <input id="leadreq-company" name="company" type="text" placeholder="اسم الشركة" />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-users">عدد الموظفين</label>
+                <input id="leadreq-users" name="users" type="number" min="1" step="1" placeholder="مثال: 25" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-phone">رقم الجوال</label>
+                <input id="leadreq-phone" name="phone" type="tel" placeholder="+20" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-email">البريد الإلكتروني</label>
+                <input id="leadreq-email" name="email" type="email" placeholder="name@company.com" required />
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-sector">القطاع</label>
+                <select id="leadreq-sector" name="sector">
+                  <option>اختر القطاع</option>
+                  <option>تجارة وتوزيع</option>
+                  <option>تجزئة ونقاط بيع</option>
+                  <option>مصانع وإنتاج</option>
+                  <option>مقاولات وإنشاءات</option>
+                  <option>تأجير وخدمات ميدانية</option>
+                  <option>خدمات مهنية</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-scope">نوع الاحتياج</label>
+                <select id="leadreq-scope" name="scope">
+                  <option>اختر نوع الاحتياج</option>
+                  <option>تطبيق ERP جديد</option>
+                  <option>تطوير نظام قائم</option>
+                  <option>مشروع CRM</option>
+                  <option>أتمتة وذكاء اصطناعي</option>
+                  <option>دعم وتشغيل مستمر</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-message">وصف مختصر للتحدي الحالي</label>
+                <textarea id="leadreq-message" name="message" placeholder="ما المشكلة التي ترغب في حلها؟" required></textarea>
+              </div>
+
+              <div class="field field-full">
+                <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+              </div>
+
+              <div class="field field-full">
+                <p class="form-status" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+          </article>
+
+          <aside class="info-card reveal">
+            <h3>تواصل مباشر</h3>
+            <ul class="list-check">
+              <li>استجابة مبدئية خلال 24 ساعة.</li>
+              <li>ورشة سريعة لفهم منهجية تسعير منتجاتك غير النمطية.</li>
+              <li>تصميم مسار تنفيذ تدريجي بدون تعطيل خطوط الإنتاج.</li>
+            </ul>
+
+            <div class="hero-actions">
+              <a class="btn btn-accent" href="/contact">عرض صفحة التواصل</a>
+              <a class="btn btn-outline" href="https://wa.me/201006676145">تواصل واتساب</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- lead-request-section:end -->
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h4>Manufacturing Management</h4>
+          <p>حل تصنيع متكامل يجمع التخطيط والتنفيذ والتكلفة في منصة واحدة.</p>
+        </div>
+        <div class="footer-col">
+          <h4>حلول مرتبطة</h4>
+          <ul>
+            <li><a href="/inventory-management">إدارة المخازن</a></li>
+            <li><a href="/procurement-management">إدارة المشتريات</a></li>
+            <li><a href="/finance-management">الإدارة المالية</a></li>
+            <li><a href="/asset-management">إدارة الأصول</a></li>
+            <li><a href="/about">عملائنا</a></li>
+            <li><a href="/contact">تواصل</a></li>
+            <li><a href="/jobs">الوظائف</a></li>
+            <li><a href="/terms">الشروط والأحكام</a></li>
+            <li><a href="/app">تسجيل الدخول</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>مركز المعرفة</h4>
+          <ul>
+            <li><a href="/blog-list">أساسيات BOM وWork Order</a></li>
+            <li><a href="/blog-post">إدارة الفاقد وتكلفة التصنيع</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصل</h4>
+          <ul>
+            <li>+20 111 999 7599</li>
+            <li>info@connect4systems.com</li>
+            <li>Mokattam, Cairo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span data-current-year></span> Connect 4 Systems</span>
+        <span>Manufacturing Management Page</span>
+      </div>
+    </footer>
+  </body>
+</html>

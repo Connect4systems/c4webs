@@ -1,0 +1,34 @@
+# Connect 4 Systems
+> Arabic-first digital transformation company providing ERP, CRM, and AI-enabled business solutions.
+
+Website: https://connect4systems.com/
+Sitemap: https://connect4systems.com/sitemap.xml
+Contact: https://connect4systems.com/contact
+
+## Core Solution Pages
+- https://connect4systems.com/trade
+- https://connect4systems.com/retail-system
+- https://connect4systems.com/rental-companies
+- https://connect4systems.com/factory
+- https://connect4systems.com/construction
+- https://connect4systems.com/wells-solar
+- https://connect4systems.com/security-systems
+- https://connect4systems.com/computer-networks
+
+## Cloud Programs
+- https://connect4systems.com/finance-management
+- https://connect4systems.com/inventory-management
+- https://connect4systems.com/manufacturing-management
+- https://connect4systems.com/asset-management
+- https://connect4systems.com/procurement-management
+- https://connect4systems.com/construction-management
+- https://connect4systems.com/hr
+- https://connect4systems.com/crm
+
+## Blog
+- https://connect4systems.com/blog-list
+- https://connect4systems.com/blog-post
+
+## Company
+- https://connect4systems.com/about
+- https://connect4systems.com/catalog

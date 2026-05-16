@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إدارة المبيعات الميدانية + البرامج السحابية المتضمنة | Connect 4</title>
+    <meta
+      name="description"
+      content="حل متكامل للشركات التجارية: POS تفاعلي على التابلت مع إنشاء Sales Order Draft وتسجيل الزيارات وGPS، بالإضافة إلى البرامج السحابية المتضمنة: الإدارة المالية، إدارة المبيعات، إدارة المخزون، وإدارة المشتريات."
+    />
+    <!-- SEO: Auto Meta Start -->
+    <link rel="icon" href="/files/logo-erp.png" type="image/png" />
+    <link rel="canonical" href="https://connect4systems.com/trade" />
+    <link rel="alternate" hreflang="ar-eg" href="https://connect4systems.com/trade" />
+    <link rel="alternate" hreflang="x-default" href="https://connect4systems.com/trade" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Connect 4 Systems" />
+    <meta name="keywords" content="ERP, CRM, AI, Digital Transformation, Frappe, ERPNext, Connect 4 Systems" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Connect 4 Systems" />
+    <meta property="og:title" content="إدارة المبيعات الميدانية + البرامج السحابية المتضمنة | Connect 4" />
+    <meta property="og:description" content="حل متكامل للشركات التجارية: POS تفاعلي على التابلت مع إنشاء Sales Order Draft وتسجيل الزيارات وGPS، بالإضافة إلى البرامج السحابية المتضمنة: الإدارة المالية، إدارة المبيعات، إدارة المخزون، وإدارة المشتريات." />
+    <meta property="og:url" content="https://connect4systems.com/trade" />
+    <meta property="og:image" content="https://connect4systems.com/files/erp2.jpg" />
+    <meta property="og:image:alt" content="إدارة المبيعات الميدانية + البرامج السحابية المتضمنة | Connect 4" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="إدارة المبيعات الميدانية + البرامج السحابية المتضمنة | Connect 4" />
+    <meta name="twitter:description" content="حل متكامل للشركات التجارية: POS تفاعلي على التابلت مع إنشاء Sales Order Draft وتسجيل الزيارات وGPS، بالإضافة إلى البرامج السحابية المتضمنة: الإدارة المالية، إدارة المبيعات، إدارة المخزون، وإدارة المشتريات." />
+    <meta name="twitter:image" content="https://connect4systems.com/files/erp2.jpg" />
+    <script type="application/ld+json">
+      {
+          "@context":  "https://schema.org",
+          "@graph":  [
+                         {
+                             "@type":  "Organization",
+                             "@id":  "https://connect4systems.com/#organization",
+                             "name":  "Connect 4 Systems",
+                             "url":  "https://connect4systems.com/",
+                             "logo":  {
+                                          "@type":  "ImageObject",
+                                          "url":  "https://connect4systems.com/files/logo-erp.png"
+                                      },
+                             "sameAs":  [
+                                            "https://www.facebook.com/connect4egypt",
+                                            "https://www.linkedin.com/company/7695997/",
+                                            "https://www.tiktok.com/@connect4systems",
+                                            "https://www.youtube.com/@ConnectSystems-ERP"
+                                        ]
+                         },
+                         {
+                             "@type":  "WebPage",
+                             "@id":  "https://connect4systems.com/trade#webpage",
+                             "url":  "https://connect4systems.com/trade",
+                             "name":  "إدارة المبيعات الميدانية + البرامج السحابية المتضمنة | Connect 4",
+                             "description":  "حل متكامل للشركات التجارية: POS تفاعلي على التابلت مع إنشاء Sales Order Draft وتسجيل الزيارات وGPS، بالإضافة إلى البرامج السحابية المتضمنة: الإدارة المالية، إدارة المبيعات، إدارة المخزون، وإدارة المشتريات.",
+                             "inLanguage":  "ar-EG",
+                             "isPartOf":  {
+                                              "@type":  "WebSite",
+                                              "@id":  "https://connect4systems.com/#website",
+                                              "url":  "https://connect4systems.com/",
+                                              "name":  "Connect 4 Systems"
+                                          },
+                             "publisher":  {
+                                               "@id":  "https://connect4systems.com/#organization"
+                                           }
+                         }
+                     ]
+      }
+    </script>
+    <!-- SEO: Auto Meta End -->
+    <link rel="stylesheet" href="/assets/c4web/css/style.css?v=20260309-sectorprog1" />
+    <script defer src="/assets/c4web/js/app.js?v=20260309-sectorprog1"></script>
+  </head>
+  <body>
+    <div class="progress-line" data-scroll-progress></div>
+
+    <header class="site-header">
+      <div class="container header-wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <img
+              class="brand-logo"
+              src="{{ c4_logo_url or '/files/logo-erp.png' }}"
+              alt="Connect 4 Systems Logo"
+              onerror="this.onerror=null;this.src='/files/logo.png';"
+            />
+          </span>
+                    <span class="brand-title">
+            <strong>Connect 4 Systems</strong>
+            <small>ERP, AI, Business Development</small>
+          </span>
+        </a>
+
+        <button class="menu-button" type="button" aria-label="فتح القائمة" aria-expanded="false" data-menu-toggle>
+          ☰
+        </button>
+
+        <div class="nav-panel" data-nav-shell>
+          <nav class="main-nav" aria-label="القائمة الرئيسية">
+            <a class="c4-nav-link" href="/">الرئيسية</a>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">البرامج السحابية</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/hr">ادارة الموارد البشرية</a>
+                <a href="/rent-app">ادارة الايجارات</a>
+                <a href="/finance-management">الادارة المالية</a>
+                <a href="/trade">إدارة المبيعات</a>
+                <a href="/crm">إدارة خدمة العملاء</a>
+                <a href="/inventory-management">إدارة المخازن</a>
+                <a href="/manufacturing-management">إدارة التصنيع</a>
+                <a href="/asset-management">إدارة الأصول</a>
+                <a href="/procurement-management">إدارة المشتريات</a>
+                <a href="/construction-management">إدارة المقاولات</a>
+              </div>
+            </div>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">الحلول الكاملة</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/retail-system">المحلات التجارية</a>
+                <a href="/trade">الشركات التجارية</a>
+                <a href="/rental-companies">شركات التأجير</a>
+                <a href="/factory">المصانع</a>
+                <a href="/construction">المقاولات</a>
+              </div>
+            </div>
+
+            <a class="c4-nav-link" href="/catalog">خطط الأسعار</a>
+          </nav>
+          <a class="btn btn-primary" href="/contact">طلب عرض</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-tight">
+        <div class="container hero-grid">
+          <div class="reveal">
+            <div class="hero-tag-row">
+              <span class="badge badge-brand">Trade + Field Sales Suite</span>
+              <span class="badge badge-ai">Tablet POS + Cloud Programs</span>
+            </div>
+            <h1 class="hero-title">من زيارة العميل إلى التحصيل: منظومة تجارية متكاملة في صفحة واحدة</h1>
+            <p class="hero-text">
+              نطبق لك نظام تشغيل متكامل يجمع البيع الميداني على التابلت مع البرامج السحابية الأساسية
+              (المالية، المبيعات، المخزون، المشتريات). المندوب يسجل الزيارة ويُنشئ Draft Sales Order،
+              والإدارة تتابع التنفيذ والمخزون والربحية لحظيا عبر لوحات دقيقة.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/contact">احجز ديمو تجاري</a>
+              <a class="btn btn-outline" href="#included-cloud-programs">البرامج المتضمنة</a>
+            </div>
+            <div class="metric-row">
+              <article class="stat-card">
+                <strong data-counter="47" data-suffix="%">0</strong>
+                <span>تحسن سرعة تحويل الزيارة لطلب</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="36" data-suffix="%">0</strong>
+                <span>خفض فجوات المخزون الميداني</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="41" data-suffix="%">0</strong>
+                <span>رفع دقة التقارير المالية والتجارية</span>
+              </article>
+            </div>
+          </div>
+
+          <aside class="hero-visual reveal" data-float="9">
+            <img class="hero-main-image" src="https://connect4systems.com/files/erp2.jpg" alt="حلول تجارة متقدمة" />
+            <div class="hero-overlay">
+              <div class="hero-panel">
+                <h3>POS تفاعلي على التابلت</h3>
+                <p>إضافة الأصناف، اختيار العميل، وإنشاء Draft Sales Order مباشرة أثناء الزيارة.</p>
+              </div>
+              <div class="hero-panel">
+                <h3>تكامل مع البرامج السحابية</h3>
+                <p>ترابط محكم بين المالية، المبيعات، المخزون، والمشتريات في نفس دورة العمل.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="features" class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">قيمة تشغيلية مباشرة</span>
+            <h2>لماذا هذا الحل مناسب للشركات التجارية سريعة النمو؟</h2>
+          </div>
+
+          <div class="cards">
+            <article class="card reveal">
+              <h3>تحويل الزيارة إلى طلب فعلي</h3>
+              <p>واجهة ميدانية تفاعلية تختصر زمن الإدخال وترفع كفاءة فريق المبيعات.</p>
+              <ul class="list-check">
+                <li>اختيار POS Profile والمخزن وقائمة الأسعار تلقائيا.</li>
+                <li>بحث سريع للأصناف وإضافة للسلة مع تعديل الكميات.</li>
+                <li>إنشاء Sales Order (Draft) مباشرة من شاشة المبيعات.</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <h3>حوكمة الزيارات الميدانية</h3>
+              <p>توثيق الزيارة بما يدعم المتابعة الإدارية ويمنع ضياع التفاصيل التشغيلية.</p>
+              <ul class="list-check">
+                <li>تسجيل بيانات الزيارة بشكل لحظي من المندوب.</li>
+                <li>رفع صورة الزيارة وربطها بسجل العميل.</li>
+                <li>تتبع GPS للمسار والزيارات حسب المنطقة.</li>
+              </ul>
+            </article>
+            <article class="card reveal">
+              <h3>قرارات أسرع اعتمادا على البيانات</h3>
+              <p>تقارير تنفيذية تربط أداء الفريق مع حالة المخزون والمخرجات المالية.</p>
+              <ul class="list-check">
+                <li>أداء المندوبين حسب الزيارات والطلبات وقيمة البيع.</li>
+                <li>رؤية كميات Actual / Available / Projected حسب المخزن.</li>
+                <li>تحليل دقة التنفيذ من الزيارة حتى التسليم والتحصيل.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section section-tight program-suite-section" id="included-cloud-programs">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">حلول الأعمال المتكاملة</span>
+            <h2>برامج أعمال التجارة والتوزيع في منصة واحدة</h2>
+            <p>برامج مخصصة لقطاع التجارة لربط المبيعات والمخزون والتحصيل وخدمة العملاء في تدفق عمل واحد.</p>
+          </div>
+
+          <div class="program-suite-grid">
+            <article class="program-suite-card reveal">
+              <div class="card-image">
+                <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="برنامج المبيعات والتوزيع" />
+              </div>
+              <div class="program-suite-body">
+                <h3>برنامج المبيعات والتوزيع</h3>
+                <p>إدارة عروض الأسعار وأوامر البيع والتوصيل والتحصيل عبر فرق البيع والمندوبين.</p>
+                <a class="btn btn-outline program-suite-link" href="/trade">عرض البرنامج</a>
+              </div>
+            </article>
+            <article class="program-suite-card reveal">
+              <div class="card-image">
+                <img src="https://images.pexels.com/photos/4386321/pexels-photo-4386321.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="برنامج الإدارة المالية للتجارة" />
+              </div>
+              <div class="program-suite-body">
+                <h3>برنامج الإدارة المالية</h3>
+                <p>متابعة الربحية اليومية وحركة النقد وربط القيود المحاسبية بكل عمليات التجارة.</p>
+                <a class="btn btn-outline program-suite-link" href="/finance-management">عرض البرنامج</a>
+              </div>
+            </article>
+            <article class="program-suite-card reveal">
+              <div class="card-image">
+                <img src="https://images.pexels.com/photos/4481327/pexels-photo-4481327.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="برنامج إدارة مخزون التجارة" />
+              </div>
+              <div class="program-suite-body">
+                <h3>برنامج إدارة المخزون</h3>
+                <p>ضبط أرصدة الأصناف وتوافرها بين المخازن مع تنبيهات إعادة الطلب قبل نفاد الكميات.</p>
+                <a class="btn btn-outline program-suite-link" href="/inventory-management">عرض البرنامج</a>
+              </div>
+            </article>
+            <article class="program-suite-card reveal">
+              <div class="card-image">
+                <img src="https://images.pexels.com/photos/6694543/pexels-photo-6694543.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="برنامج مشتريات التجارة" />
+              </div>
+              <div class="program-suite-body">
+                <h3>برنامج إدارة المشتريات</h3>
+                <p>إدارة دورة التوريد من طلب الشراء حتى الاستلام بما يتوافق مع سرعة دوران البضاعة.</p>
+                <a class="btn btn-outline program-suite-link" href="/procurement-management">عرض البرنامج</a>
+              </div>
+            </article>
+            <article class="program-suite-card reveal">
+              <div class="card-image">
+                <img src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="برنامج خدمة العملاء للتجارة" />
+              </div>
+              <div class="program-suite-body">
+                <h3>برنامج خدمة العملاء</h3>
+                <p>تجميع طلبات العملاء والشكاوى ومتابعتها حتى الإغلاق مع سجل خدمة كامل لكل عميل.</p>
+                <a class="btn btn-outline program-suite-link" href="/crm">عرض البرنامج</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container tab-shell reveal">
+          <div class="tab-nav" role="tablist" aria-label="حالات استخدام التجارة">
+            <button class="tab-button active" type="button" data-tab-target="dist" aria-selected="true">POS على التابلت</button>
+            <button class="tab-button" type="button" data-tab-target="multi" aria-selected="false">زيارة العميل وGPS</button>
+            <button class="tab-button" type="button" data-tab-target="proc" aria-selected="false">تقارير المبيعات والمخزون</button>
+          </div>
+
+          <article class="tab-panel active" data-tab-panel="dist">
+            <figure class="tab-media">
+              <img src="https://images.pexels.com/photos/7709109/pexels-photo-7709109.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="POS تفاعلي على التابلت" />
+            </figure>
+            <div class="tab-content">
+              <h3>إنشاء Draft Sales Order أثناء الزيارة</h3>
+              <p>المندوب ينفذ البيع مباشرة من التابلت بدون انتظار الرجوع للمكتب.</p>
+              <ul class="list-check">
+                <li>واجهة POS سريعة للبحث والإضافة والتعديل في السلة.</li>
+                <li>اختيار عميل ووسيلة دفع ثم إنشاء Sales Order Draft.</li>
+                <li>إرسال الطلب للإدارة للمراجعة أو الاستكمال الفوري.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="multi">
+            <figure class="tab-media">
+              <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="تسجيل زيارة العميل وتتبع GPS" />
+            </figure>
+            <div class="tab-content">
+              <h3>تسجيل الزيارات الميدانية مع تتبع الموقع</h3>
+              <p>كل زيارة تصبح موثقة ببيانات العميل، نتائج الزيارة، والموقع الفعلي.</p>
+              <ul class="list-check">
+                <li>تسجيل Customer Visit وربطه بسير المبيعات.</li>
+                <li>رفع صورة الزيارة ضمن الملف الميداني.</li>
+                <li>تتبع GPS لمسار المندوب وتغطية المناطق.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="proc">
+            <figure class="tab-media">
+              <img src="https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="تقارير فريق المبيعات والمخزون" />
+            </figure>
+            <div class="tab-content">
+              <h3>لوحات أداء للمبيعات والمخزون</h3>
+              <p>تقارير تنفيذية تربط نتائج الميدان بحركة المخزون وقرارات الإدارة.</p>
+              <ul class="list-check">
+                <li>متابعة قيمة المبيعات والزيارات لكل مندوب.</li>
+                <li>تحليل الأصناف حسب Actual/Available/Projected qty.</li>
+                <li>إنذارات مبكرة لعجز المخزون وتأخر التنفيذ.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">مسار العمل اليومي لفريق المبيعات</span>
+            <h2>من تسجيل الزيارة إلى التقارير التنفيذية</h2>
+          </div>
+
+          <div class="timeline reveal">
+            <article class="timeline-item">
+              <h4>1) بدء الزيارة من التابلت</h4>
+              <p>اختيار العميل وتسجيل بداية الزيارة ضمن خطة المندوب اليومية.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>2) توثيق الزيارة وGPS</h4>
+              <p>حفظ تفاصيل الزيارة والموقع الفعلي مع إمكانية إرفاق صورة الزيارة.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>3) إنشاء Sales Order (Draft)</h4>
+              <p>إضافة الأصناف من POS التفاعلي وتأكيد الطلب مباشرة أثناء الزيارة.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>4) التحقق من المخزون</h4>
+              <p>فحص كميات المخزون حسب سياسة العرض: Actual أو Available أو Projected.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>5) متابعة التنفيذ والتحصيل</h4>
+              <p>تمرير الطلب للإدارة واللوجستيات ومتابعة التسليم والتحصيل حتى الإغلاق.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>6) تقارير الإدارة</h4>
+              <p>لوحات أداء للمندوبين، الزيارات، المبيعات، وكفاءة المخزون حسب المنطقة.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="cta-band reveal">
+            <div>
+              <h3>جاهز لتشغيل فريق المبيعات الميداني بنظام واحد؟</h3>
+              <p>ننفذ لك رحلة متكاملة تشمل POS على التابلت، تسجيل الزيارات، GPS، وتقارير المبيعات والمخزون.</p>
+            </div>
+            <a class="btn btn-accent" href="/contact">ابدأ نظام المبيعات الميدانية</a>
+          </div>
+        </div>
+      </section>
+          <!-- lead-request-section:start -->
+      <section class="section section-tight" id="lead-request">
+        <div class="container contact-layout">
+          <article class="form-card reveal">
+            <h2>أرسل طلبك الآن</h2>
+            <p class="text-muted">املأ النموذج التالي وسيتواصل معك فريقنا خلال يوم عمل.</p>
+
+            <form class="form-grid" data-lead-form novalidate>
+              <div class="field">
+                <label for="leadreq-name">الاسم</label>
+                <input id="leadreq-name" name="name" type="text" placeholder="الاسم الكامل" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-company">اسم الشركة</label>
+                <input id="leadreq-company" name="company" type="text" placeholder="اسم الشركة" />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-users">عدد الموظفين</label>
+                <input id="leadreq-users" name="users" type="number" min="1" step="1" placeholder="مثال: 25" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-phone">رقم الجوال</label>
+                <input id="leadreq-phone" name="phone" type="tel" placeholder="+20" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-email">البريد الإلكتروني</label>
+                <input id="leadreq-email" name="email" type="email" placeholder="name@company.com" required />
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-sector">القطاع</label>
+                <select id="leadreq-sector" name="sector">
+                  <option>اختر القطاع</option>
+                  <option>تجارة وتوزيع</option>
+                  <option>تجزئة ونقاط بيع</option>
+                  <option>مصانع وإنتاج</option>
+                  <option>مقاولات وإنشاءات</option>
+                  <option>تأجير وخدمات ميدانية</option>
+                  <option>خدمات مهنية</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-scope">نوع الاحتياج</label>
+                <select id="leadreq-scope" name="scope">
+                  <option>اختر نوع الاحتياج</option>
+                  <option>تطبيق ERP جديد</option>
+                  <option>تطوير نظام قائم</option>
+                  <option>مشروع CRM</option>
+                  <option>أتمتة وذكاء اصطناعي</option>
+                  <option>دعم وتشغيل مستمر</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-message">وصف مختصر للتحدي الحالي</label>
+                <textarea id="leadreq-message" name="message" placeholder="ما المشكلة التي ترغب في حلها؟" required></textarea>
+              </div>
+
+              <div class="field field-full">
+                <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+              </div>
+
+              <div class="field field-full">
+                <p class="form-status" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+          </article>
+
+          <aside class="info-card reveal">
+            <h3>تواصل مباشر</h3>
+            <ul class="list-check">
+              <li>استجابة مبدئية خلال 24 ساعة.</li>
+              <li>تقييم احتياج حسب القطاع وحجم الفريق.</li>
+              <li>خارطة طريق تنفيذية واضحة قبل التعاقد.</li>
+            </ul>
+
+            <div class="hero-actions">
+              <a class="btn btn-accent" href="/contact">عرض صفحة التواصل</a>
+              <a class="btn btn-outline" href="https://wa.me/201006676145">تواصل واتساب</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- lead-request-section:end -->
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h4>Trade OS</h4>
+          <p>حل متكامل للمبيعات الميدانية: POS على التابلت، تتبع زيارات، GPS، وتقارير مخزون ومبيعات.</p>
+        </div>
+        <div class="footer-col">
+          <h4>حلول مرتبطة</h4>
+          <ul>
+            <li><a href="/crm">إدارة علاقات العملاء</a></li>
+            <li><a href="/retail-system">حلول التجزئة</a></li>
+            <li><a href="/catalog">المنتجات والباقات</a></li>
+            <li><a href="/complete-solutions">الحلول الكاملة</a></li>
+          
+            <li><a href="/about">عملائنا</a></li>
+            <li><a href="/contact">تواصل</a></li>
+            <li><a href="/blog-list">المدونة</a></li>
+            <li><a href="/jobs">الوظائف</a></li>
+            <li><a href="/terms">الشروط والأحكام</a></li>
+            <li><a href="/app">تسجيل الدخول</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>مقالات مفيدة</h4>
+          <ul>
+            <li><a href="/blog-list">أخطاء اختيار ERP</a></li>
+            <li><a href="/blog-post">دور AI في المبيعات</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصل</h4>
+          <ul>
+            <li>+20 111 999 7599</li>
+            <li>info@connect4systems.com</li>
+            <li>Mokattam, Cairo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span data-current-year></span> Connect 4 Systems</span>
+        <span>Trade Industry Page</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

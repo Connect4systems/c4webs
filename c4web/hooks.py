@@ -1,275 +1,217 @@
 app_name = "c4web"
-app_title = "C4Web"
+app_title = "C4 Web"
 app_publisher = "Connect4systems"
-app_description = "Website App"
+app_description = "Modern Arabic RTL website for Connect4systems"
 app_email = "info@connect4systems.com"
-app_license = "mit"
+app_license = "MIT"
 
-# Apps
-# ------------------
+update_website_context = "c4web.utils.update_website_context"
 
-# required_apps = []
+modern_website_route_rules = [
+    {"from_route": "/", "to_route": "index-modern"},
+    {"from_route": "/home", "to_route": "index-modern"},
+    {"from_route": "/index-ar", "to_route": "index-modern"},
+    {"from_route": "/index-en", "to_route": "index-modern"},
+    {"from_route": "/system", "to_route": "index-modern"},
+    {"from_route": "/system2", "to_route": "index-modern"},
+    {"from_route": "/sub", "to_route": "index-modern"},
+    {"from_route": "/int", "to_route": "index-modern"},
+    {"from_route": "/c4", "to_route": "index-modern"},
+    {"from_route": "/connect", "to_route": "index-modern"},
+    {"from_route": "/pages/PageEN", "to_route": "index-modern"},
+    {"from_route": "/pages/PageAR", "to_route": "index-modern"},
+    {"from_route": "/pages/my-page-6487", "to_route": "index-modern"},
+    {"from_route": "/project/PageAR", "to_route": "index-modern"},
+    {"from_route": "/rana", "to_route": "index-modern"},
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "c4web",
-# 		"logo": "/assets/c4web/logo.png",
-# 		"title": "C4Web",
-# 		"route": "/c4web",
-# 		"has_permission": "c4web.api.permission.has_app_permission"
-# 	}
-# ]
+    {"from_route": "/about", "to_route": "about-modern"},
+    {"from_route": "/contact", "to_route": "contact-modern"},
+    {"from_route": "/terms", "to_route": "terms-modern"},
+    {"from_route": "/terms-and-conditions", "to_route": "terms-modern"},
+    {"from_route": "/solution-template", "to_route": "solution-template-modern"},
+    {"from_route": "/complete-solutions", "to_route": "complete-solutions-modern"},
+    {"from_route": "/catalog", "to_route": "catalog-modern"},
+    {"from_route": "/blog-list", "to_route": "blog-list-modern"},
+    {"from_route": "/blog-post", "to_route": "blog-post-modern"},
+    {"from_route": "/trade", "to_route": "trade-modern"},
+    {"from_route": "/retail-system", "to_route": "retail-system-modern"},
+    {"from_route": "/crm", "to_route": "crm-modern"},
+    {"from_route": "/factory", "to_route": "factory-modern"},
+    {"from_route": "/hr", "to_route": "hr-modern"},
+    {"from_route": "/construction", "to_route": "construction-modern"},
+    {"from_route": "/wells-solar", "to_route": "wells-solar-modern"},
+    {"from_route": "/security-systems", "to_route": "security-systems-modern"},
+    {"from_route": "/computer-networks", "to_route": "computer-networks-modern"},
+    {"from_route": "/rent-app", "to_route": "rent-app-modern"},
+    {"from_route": "/rental-companies", "to_route": "rental-companies-modern"},
+    {"from_route": "/finance-management", "to_route": "finance-management-modern"},
+    {"from_route": "/inventory-management", "to_route": "inventory-management-modern"},
+    {"from_route": "/manufacturing-management", "to_route": "manufacturing-management-modern"},
+    {"from_route": "/asset-management", "to_route": "asset-management-modern"},
+    {"from_route": "/procurement-management", "to_route": "procurement-management-modern"},
+    {"from_route": "/construction-management", "to_route": "construction-management-modern"},
 
-# Includes in <head>
-# ------------------
+    {"from_route": "/all-products", "to_route": "catalog-modern"},
+    {"from_route": "/shop-by-category", "to_route": "catalog-modern"},
+    {"from_route": "/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA", "to_route": "catalog-modern"},
+    {"from_route": "/e-commerce", "to_route": "catalog-modern"},
+    {"from_route": "/retailtest", "to_route": "retail-system-modern"},
+    {"from_route": "/retais-erp", "to_route": "retail-system-modern"},
+    {"from_route": "/hr2", "to_route": "hr-modern"},
+    {"from_route": "/stock", "to_route": "trade-modern"},
+    {"from_route": "/sales", "to_route": "trade-modern"},
+    {"from_route": "/ship", "to_route": "trade-modern"},
+    {"from_route": "/Account_system", "to_route": "trade-modern"},
+    {"from_route": "/web-development", "to_route": "solution-template-modern"},
 
-# include js, css files in header of desk.html
-# app_include_css = "/assets/c4web/css/c4web.css"
-# app_include_js = "/assets/c4web/js/c4web.js"
+    {"from_route": "/recruitment", "to_route": "hr-modern"},
+    {"from_route": "/attendance", "to_route": "hr-modern"},
+    {"from_route": "/leave-management", "to_route": "hr-modern"},
+    {"from_route": "/expense-management", "to_route": "hr-modern"},
+    {"from_route": "/performance-management", "to_route": "hr-modern"},
+    {"from_route": "/salary-payouts", "to_route": "hr-modern"},
+    {"from_route": "/tax-%26-benefits", "to_route": "hr-modern"},
 
-# include js, css files in header of web template
-# web_include_css = "/assets/c4web/css/c4web.css"
+    {"from_route": "/testabout", "to_route": "about-modern"},
+    {"from_route": "/testregister", "to_route": "contact-modern"},
+    {"from_route": "/test", "to_route": "contact-modern"},
+    {"from_route": "/register", "to_route": "contact-modern"},
+    {"from_route": "/cart", "to_route": "catalog-modern"},
+    {"from_route": "/lms", "to_route": "blog-list-modern"},
+    {"from_route": "/%D8%A7%D9%84%D8%AF%D8%B9%D8%AC", "to_route": "contact-modern"},
 
-# include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "c4web/public/scss/website"
-
-# include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
-# webform_include_css = {"doctype": "public/css/doctype.css"}
-
-# include js in page
-# page_js = {"page" : "public/js/file.js"}
-
-# include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
-# Svg Icons
-# ------------------
-# include app icons in desk
-# app_include_icons = "c4web/public/icons.svg"
-
-# Home Pages
-# ----------
-
-# application home page (will override Website Settings)
-# home_page = "login"
-
-# website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
-
-# Generators
-# ----------
-
-# automatically create page for each record of this doctype
-# website_generators = ["Web Page"]
-
-# Jinja
-# ----------
-
-# add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "c4web.utils.jinja_methods",
-# 	"filters": "c4web.utils.jinja_filters"
-# }
-
-# Installation
-# ------------
-
-# before_install = "c4web.install.before_install"
-# after_install = "c4web.install.after_install"
-
-# Uninstallation
-# ------------
-
-# before_uninstall = "c4web.uninstall.before_uninstall"
-# after_uninstall = "c4web.uninstall.after_uninstall"
-
-# Integration Setup
-# ------------------
-# To set up dependencies/integrations with other apps
-# Name of the app being installed is passed as an argument
-
-# before_app_install = "c4web.utils.before_app_install"
-# after_app_install = "c4web.utils.after_app_install"
-
-# Integration Cleanup
-# -------------------
-# To clean up dependencies/integrations with other apps
-# Name of the app being uninstalled is passed as an argument
-
-# before_app_uninstall = "c4web.utils.before_app_uninstall"
-# after_app_uninstall = "c4web.utils.after_app_uninstall"
-
-# Desk Notifications
-# ------------------
-# See frappe.core.notifications.get_notification_config
-
-# notification_config = "c4web.notifications.get_notification_config"
-
-# Permissions
-# -----------
-# Permissions evaluated in scripted ways
-
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
-
-# DocType Class
-# ---------------
-# Override standard doctype classes
-
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
-
-# Document Events
-# ---------------
-# Hook on document methods and events
-
-doc_events = {
-	"Payment Entry": {
-		"on_submit": "c4web.whatsapp_sales_order.send_payment_entry_message"
-	},
-	"Sales Invoice": {
-		"on_submit": "c4web.whatsapp_sales_order.send_sales_invoice_pdf"
-	},
-	"Sales Order": {
-		"on_submit": "c4web.whatsapp_sales_order.send_sales_order_pdf"
-	},
-	"User": {
-		"validate": "c4web.api.validate_user_mobile_number"
-	},
-	"Customer": {
-		"after_insert": "c4web.api.update_new_customer_mobile_number"
-	}
-}
-
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
-
-# Scheduled Tasks
-# ---------------
-
-# scheduler_events = {
-# 	"all": [
-# 		"c4web.tasks.all"
-# 	],
-# 	"daily": [
-# 		"c4web.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"c4web.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"c4web.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"c4web.tasks.monthly"
-# 	],
-# }
-
-# Testing
-# -------
-
-# before_tests = "c4web.install.before_tests"
-
-# Overriding Methods
-# ------------------------------
-#
-override_whitelisted_methods = {
-	"frappe.www.login.sign_up": "c4web.api.sign_up_with_mobile",
-	"frappe.core.doctype.user.user.sign_up": "c4web.api.sign_up_with_mobile"
-}
-#
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "c4web.task.get_dashboard_data"
-# }
-
-# exempt linked doctypes from being automatically cancelled
-#
-# auto_cancel_exempted_doctypes = ["Auto Repeat"]
-
-# Ignore links to specified DocTypes when deleting documents
-# -----------------------------------------------------------
-
-# ignore_links_on_delete = ["Communication", "ToDo"]
-
-# Request Events
-# ----------------
-# before_request = ["c4web.utils.before_request"]
-# after_request = ["c4web.utils.after_request"]
-
-# Job Events
-# ----------
-# before_job = ["c4web.utils.before_job"]
-# after_job = ["c4web.utils.after_job"]
-
-# User Data Protection
-# --------------------
-
-# user_data_fields = [
-# 	{
-# 		"doctype": "{doctype_1}",
-# 		"filter_by": "{filter_by}",
-# 		"redact_fields": ["{field_1}", "{field_2}"],
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_2}",
-# 		"filter_by": "{filter_by}",
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_3}",
-# 		"strict": False,
-# 	},
-# 	{
-# 		"doctype": "{doctype_4}"
-# 	}
-# ]
-
-# Authentication and authorization
-# --------------------------------
-
-# auth_hooks = [
-# 	"c4web.auth.validate"
-# ]
-
-# Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
-
-# default_log_clearing_doctypes = {
-# 	"Logging DocType Name": 30  # days to retain logs
-# }
-
-# Translation
-# ------------
-# List of apps whose translatable strings should be excluded from this app's translations.
-# ignore_translatable_strings_from = []
-
-# Website Assets
-web_include_js = [
-    "/assets/c4web/js/related_products.js"
+    {"from_route": "/blog/general-blog", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/partner", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/artical", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/erpnext", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/factories", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/real-state", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/hr", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/financial", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/stock", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/developer", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/%D9%85%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D8%B9%D8%A7%D9%85", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9", "to_route": "blog-list-modern"},
+    {"from_route": "/blog/%D8%A7%D9%84%D9%85%D8%AD%D9%84%D8%A7%D8%AA", "to_route": "blog-list-modern"},
+    {
+        "from_route": "/blog/general-blog/p-style%3Dtext-align-right%3Bspan-style%3Dcolor-000000%3Bstrong%D9%85%D9%86%D8%A7%D8%B3%D8%A8-%D9%84%D8%B4%D8%B1%D9%83%D8%AA%D9%83-erp-system-%D9%83%D9%8A%D9%81%D9%8A%D8%A9-%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1-strong-span-p",
+        "to_route": "blog-post-modern",
+    },
+    {
+        "from_route": "/blog/general-blog/h4-style%3Dtext-align-center%3Bspan-style%3Dcolor-000000%3Bstrong-%D9%88%D8%A3%D9%8A%D9%87%D9%85%D8%A7-%D8%A7%D9%84%D8%A3%D9%86%D8%B3%D8%A8-%D9%84%D8%B9%D9%85%D9%84%D9%83-erp%D9%88crm%D9%85%D8%A7-%D9%87%D9%88-%D8%A7%D9%84%D9%81%D8%B1%D9%82-%D8%A8%D9%8A%D9%86-strong-span-h4",
+        "to_route": "blog-post-modern",
+    },
+    {
+        "from_route": "/blog/erpnext/h2-style%3Dtext-align-right%3Bstrong%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1-%D9%86%D8%B8%D8%A7%D9%85-%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%AC%D9%88%D8%AF%D8%A9-%D9%85%D8%B1%D9%86-%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D9%85%D8%B1%D9%88%D9%86%D8%A9-%D9%88%D8%A7%D9%84%D9%83%D9%81%D8%A7%D8%A1%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9-erpnext-strong-h2",
+        "to_route": "blog-post-modern",
+    },
+    {
+        "from_route": "/blog/erpnext/app-versions-%60%60%60-%7B-builder-1123-ecommerce-integrations-1201-erpnext-15393-frappe-15451-hr-policy-",
+        "to_route": "blog-post-modern",
+    },
+    {"from_route": "/blog/<path:slug>", "to_route": "blog-post-modern"},
+    {"from_route": "/blog/trade1", "to_route": "blog-post-modern"},
 ]
 
-web_include_css = [
-    "/assets/c4web/css/related_products.css"
+legacy_website_route_rules = [
+    {"from_route": "/home", "to_route": "index"},
+    {"from_route": "/index-ar", "to_route": "index"},
+    {"from_route": "/index-en", "to_route": "index"},
+    {"from_route": "/system", "to_route": "index"},
+    {"from_route": "/system2", "to_route": "index"},
+    {"from_route": "/sub", "to_route": "index"},
+    {"from_route": "/int", "to_route": "index"},
+    {"from_route": "/c4", "to_route": "index"},
+    {"from_route": "/connect", "to_route": "index"},
+    {"from_route": "/pages/PageEN", "to_route": "index"},
+    {"from_route": "/pages/PageAR", "to_route": "index"},
+    {"from_route": "/pages/my-page-6487", "to_route": "index"},
+    {"from_route": "/project/PageAR", "to_route": "index"},
+    {"from_route": "/rana", "to_route": "index"},
+
+    {"from_route": "/all-products", "to_route": "catalog"},
+    {"from_route": "/shop-by-category", "to_route": "catalog"},
+    {"from_route": "/%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA", "to_route": "catalog"},
+    {"from_route": "/e-commerce", "to_route": "catalog"},
+
+    {"from_route": "/trade", "to_route": "trade"},
+    {"from_route": "/retail-system", "to_route": "retail-system"},
+    {"from_route": "/factory", "to_route": "factory"},
+    {"from_route": "/crm", "to_route": "crm"},
+    {"from_route": "/hr", "to_route": "hr"},
+    {"from_route": "/construction", "to_route": "construction"},
+    {"from_route": "/wells-solar", "to_route": "wells-solar"},
+    {"from_route": "/security-systems", "to_route": "security-systems"},
+    {"from_route": "/computer-networks", "to_route": "computer-networks"},
+    {"from_route": "/rent-app", "to_route": "rent-app"},
+    {"from_route": "/rental-companies", "to_route": "rental-companies"},
+    {"from_route": "/finance-management", "to_route": "finance-management"},
+    {"from_route": "/inventory-management", "to_route": "inventory-management"},
+    {"from_route": "/manufacturing-management", "to_route": "manufacturing-management"},
+    {"from_route": "/asset-management", "to_route": "asset-management"},
+    {"from_route": "/procurement-management", "to_route": "procurement-management"},
+    {"from_route": "/construction-management", "to_route": "construction-management"},
+
+    {"from_route": "/retailtest", "to_route": "retail-system"},
+    {"from_route": "/retais-erp", "to_route": "retail-system"},
+    {"from_route": "/hr2", "to_route": "hr"},
+    {"from_route": "/stock", "to_route": "trade"},
+    {"from_route": "/sales", "to_route": "trade"},
+    {"from_route": "/ship", "to_route": "trade"},
+    {"from_route": "/Account_system", "to_route": "trade"},
+    {"from_route": "/web-development", "to_route": "solution-template"},
+    {"from_route": "/complete-solutions", "to_route": "complete-solutions"},
+    {"from_route": "/terms", "to_route": "terms"},
+    {"from_route": "/terms-and-conditions", "to_route": "terms"},
+
+    {"from_route": "/recruitment", "to_route": "hr"},
+    {"from_route": "/attendance", "to_route": "hr"},
+    {"from_route": "/leave-management", "to_route": "hr"},
+    {"from_route": "/expense-management", "to_route": "hr"},
+    {"from_route": "/performance-management", "to_route": "hr"},
+    {"from_route": "/salary-payouts", "to_route": "hr"},
+    {"from_route": "/tax-%26-benefits", "to_route": "hr"},
+
+    {"from_route": "/testabout", "to_route": "about"},
+    {"from_route": "/testregister", "to_route": "contact"},
+    {"from_route": "/test", "to_route": "contact"},
+    {"from_route": "/register", "to_route": "contact"},
+    {"from_route": "/cart", "to_route": "catalog"},
+    {"from_route": "/lms", "to_route": "blog-list"},
+    {"from_route": "/%D8%A7%D9%84%D8%AF%D8%B9%D8%AC", "to_route": "contact"},
+
+    {"from_route": "/blog/general-blog", "to_route": "blog-list"},
+    {"from_route": "/blog/partner", "to_route": "blog-list"},
+    {"from_route": "/blog/artical", "to_route": "blog-list"},
+    {"from_route": "/blog/erpnext", "to_route": "blog-list"},
+    {"from_route": "/blog/factories", "to_route": "blog-list"},
+    {"from_route": "/blog/real-state", "to_route": "blog-list"},
+    {"from_route": "/blog/hr", "to_route": "blog-list"},
+    {"from_route": "/blog/financial", "to_route": "blog-list"},
+    {"from_route": "/blog/stock", "to_route": "blog-list"},
+    {"from_route": "/blog/developer", "to_route": "blog-list"},
+    {"from_route": "/blog/%D9%85%D9%82%D8%A7%D9%84%D8%A7%D8%AA-%D8%B9%D8%A7%D9%85", "to_route": "blog-list"},
+    {"from_route": "/blog/%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9", "to_route": "blog-list"},
+    {"from_route": "/blog/%D8%A7%D9%84%D9%85%D8%AD%D9%84%D8%A7%D8%AA", "to_route": "blog-list"},
+
+    {
+        "from_route": "/blog/general-blog/p-style%3Dtext-align-right%3Bspan-style%3Dcolor-000000%3Bstrong%D9%85%D9%86%D8%A7%D8%B3%D8%A8-%D9%84%D8%B4%D8%B1%D9%83%D8%AA%D9%83-erp-system-%D9%83%D9%8A%D9%81%D9%8A%D8%A9-%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1-strong-span-p",
+        "to_route": "blog-post",
+    },
+    {
+        "from_route": "/blog/general-blog/h4-style%3Dtext-align-center%3Bspan-style%3Dcolor-000000%3Bstrong-%D9%88%D8%A3%D9%8A%D9%87%D9%85%D8%A7-%D8%A7%D9%84%D8%A3%D9%86%D8%B3%D8%A8-%D9%84%D8%B9%D9%85%D9%84%D9%83-erp%D9%88crm%D9%85%D8%A7-%D9%87%D9%88-%D8%A7%D9%84%D9%81%D8%B1%D9%82-%D8%A8%D9%8A%D9%86-strong-span-h4",
+        "to_route": "blog-post",
+    },
+    {
+        "from_route": "/blog/erpnext/h2-style%3Dtext-align-right%3Bstrong%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1-%D9%86%D8%B8%D8%A7%D9%85-%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%AC%D9%88%D8%AF%D8%A9-%D9%85%D8%B1%D9%86-%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D9%85%D8%B1%D9%88%D9%86%D8%A9-%D9%88%D8%A7%D9%84%D9%83%D9%81%D8%A7%D8%A1%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9-erpnext-strong-h2",
+        "to_route": "blog-post",
+    },
+    {
+        "from_route": "/blog/erpnext/app-versions-%60%60%60-%7B-builder-1123-ecommerce-integrations-1201-erpnext-15393-frappe-15451-hr-policy-",
+        "to_route": "blog-post",
+    },
+    {"from_route": "/blog/<path:slug>", "to_route": "blog-post"},
+    {"from_route": "/blog/trade1", "to_route": "blog-post"},
 ]
+
+website_route_rules = modern_website_route_rules + legacy_website_route_rules

@@ -1,356 +1,465 @@
+import re
+
 import frappe
-from frappe.utils import flt, cint
-from frappe.utils.pdf import get_pdf
+from frappe import _
 
 
-def get_website_stock_settings():
-    website_warehouse = frappe.db.get_single_value(
-        "Website Settings",
-        "custom_website_stock_warehouse"
-    )
+_LAYOUT_FIELD_TYPES = {
+    "Section Break",
+    "Column Break",
+    "Tab Break",
+    "HTML",
+    "Button",
+    "Table",
+    "Table MultiSelect",
+    "Fold",
+    "Heading",
+}
 
-    show_only_available = cint(
-        frappe.db.get_single_value(
-            "Website Settings",
-            "custom_show_only_available_stock_products"
-        )
-    )
+_TEXT_LIKE_FIELD_TYPES = {
+    "Data",
+    "Small Text",
+    "Text",
+    "Text Editor",
+    "Long Text",
+    "Code",
+    "Markdown Editor",
+    "Read Only",
+}
 
-    return website_warehouse, show_only_available
+_BLOG_IMAGE_FIELD_CANDIDATES = (
+    "image",
+    "meta_image",
+    "featured_image",
+    "cover_image",
+    "thumbnail",
+)
 
+_PARTNER_SECTION_KICKER_FIELD_CANDIDATES = (
+    "partners_section_kicker",
+    "partner_section_kicker",
+    "partners_kicker",
+    "partner_kicker",
+)
 
-def get_item_stock_qty(item_code, warehouse=None):
-    if warehouse:
-        return flt(
-            frappe.db.get_value(
-                "Bin",
-                {
-                    "item_code": item_code,
-                    "warehouse": warehouse
-                },
-                "actual_qty"
-            )
-        )
+_PARTNER_SECTION_TITLE_FIELD_CANDIDATES = (
+    "partners_section_title",
+    "partner_section_title",
+    "partners_title",
+    "partner_title",
+)
 
-    qty = frappe.db.sql(
-        """
-        SELECT COALESCE(SUM(actual_qty), 0)
-        FROM `tabBin`
-        WHERE item_code = %s
-        """,
-        item_code
-    )
+_DEFAULT_PARTNER_SECTION_KICKER = "شركاء وكيانات نعمل معها"
+_DEFAULT_PARTNER_SECTION_TITLE = "منظومة تعاون قوية تعزز سرعة التنفيذ"
 
-    return flt(qty[0][0]) if qty else 0
-
-
-def get_item_price(item_code):
-    rate = frappe.db.sql(
-        """
-        SELECT price_list_rate
-        FROM `tabItem Price`
-        WHERE
-            item_code = %s
-            AND selling = 1
-            AND IFNULL(price_list_rate, 0) > 0
-        ORDER BY valid_from DESC, modified DESC
-        LIMIT 1
-        """,
-        item_code
-    )
-
-    return flt(rate[0][0]) if rate else 0
+_IMG_SRC_PATTERN = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.IGNORECASE)
 
 
-@frappe.whitelist(allow_guest=True)
-def sales_order_pdf(name=None, key=None):
-    secret_key = frappe.conf.get("whatsapp_pdf_key")
+def _clean_text(value, max_len=0):
+    if value is None:
+        text = ""
+    else:
+        text = str(value).strip()
+    if max_len and len(text) > max_len:
+        return text[:max_len]
+    return text
 
-    if not secret_key:
-        frappe.throw("whatsapp_pdf_key is not configured in site_config.json")
 
-    if key != secret_key:
-        frappe.throw("Invalid key")
+def _is_placeholder(value):
+    text = _clean_text(value)
+    return not text or text.startswith("اختر")
 
+
+def _clean_users(value):
+    text = _clean_text(value, 20)
+    if not text:
+        return ""
+    # Keep numeric characters only so the value can be saved into Int/Data fields safely.
+    return "".join(char for char in text if char.isdigit())
+
+
+def _normalize_web_url(value):
+    text = _clean_text(value, 500)
+    if not text:
+        return ""
+
+    if text.startswith(("http://", "https://", "//", "data:")):
+        return text
+    if text.startswith("/"):
+        return text
+    return f"/{text}"
+
+
+def _extract_first_image_from_html(html_text):
+    html_value = _clean_text(html_text, 20000)
+    if not html_value:
+        return ""
+
+    match = _IMG_SRC_PATTERN.search(html_value)
+    if not match:
+        return ""
+    return _normalize_web_url(match.group(1))
+
+
+def _first_configured_value(document, fieldnames, max_len=0):
+    for fieldname in fieldnames:
+        value = _clean_text(document.get(fieldname), max_len)
+        if value:
+            return value
+    return ""
+
+
+def _get_partner_section_text():
+    settings = frappe.get_cached_doc("Website Settings", "Website Settings")
+
+    kicker = _first_configured_value(
+        settings,
+        _PARTNER_SECTION_KICKER_FIELD_CANDIDATES,
+        max_len=200,
+    ) or _DEFAULT_PARTNER_SECTION_KICKER
+
+    title = _first_configured_value(
+        settings,
+        _PARTNER_SECTION_TITLE_FIELD_CANDIDATES,
+        max_len=240,
+    ) or _DEFAULT_PARTNER_SECTION_TITLE
+
+    return {"kicker": kicker, "title": title}
+
+
+def _coerce_field_value(field, raw_value):
+    if not field:
+        return ""
+    if raw_value is None:
+        return ""
+
+    fieldtype = (field.fieldtype or "").strip()
+    text = _clean_text(raw_value, 2000)
+    if _is_placeholder(text):
+        return ""
+
+    if fieldtype in {"Int", "Check"}:
+        normalized = "".join(char for char in text if char.isdigit() or char == "-")
+        if not normalized:
+            return ""
+        try:
+            return int(normalized)
+        except (TypeError, ValueError):
+            return ""
+
+    if fieldtype in {"Float", "Currency", "Percent"}:
+        normalized = text.replace(",", "")
+        try:
+            return float(normalized)
+        except (TypeError, ValueError):
+            return ""
+
+    if fieldtype == "Link":
+        options = _clean_text(getattr(field, "options", ""), 140)
+        if not options:
+            return text
+        return text if frappe.db.exists(options, text) else ""
+
+    return text
+
+
+def _infer_required_value(fieldname, values):
+    name = (fieldname or "").lower()
     if not name:
-        frappe.throw("Sales Order name is required")
+        return ""
 
-    if not frappe.db.exists("Sales Order", name):
-        frappe.throw("Sales Order not found")
-
-    html = frappe.get_print(
-        doctype="Sales Order",
-        name=name,
-        print_format="Standard",
-        no_letterhead=0,
-    )
-    pdf = get_pdf(html)
-
-    frappe.local.response.filename = f"{name}.pdf"
-    frappe.local.response.filecontent = pdf
-    frappe.local.response.type = "download"
+    if "sector" in name or "industry" in name or "وصف_النشاط" in (fieldname or ""):
+        return values.get("sector") or ""
+    if (
+        "scope" in name
+        or "need" in name
+        or "require" in name
+        or "service" in name
+        or name.endswith("_req")
+        or "req" in name
+    ):
+        return values.get("scope") or ""
+    if (
+        "message" in name
+        or "note" in name
+        or "brief" in name
+        or "challenge" in name
+        or name.endswith("_inq")
+        or "inq" in name
+    ):
+        return values.get("message") or ""
+    if "user" in name or "employee" in name or "staff" in name:
+        return values.get("users") or ""
+    if "company" in name:
+        return values.get("company") or ""
+    if "phone" in name or "mobile" in name:
+        return values.get("phone") or ""
+    if "email" in name:
+        return values.get("email") or ""
+    if "source" in name:
+        return "Website"
+    return ""
 
 
 @frappe.whitelist(allow_guest=True)
-def get_product_page_info(item_code=None, route=None):
-    if not item_code and route:
-        route = route.strip("/")
-        item_code = frappe.db.get_value(
-            "Website Item",
-            {"route": route},
-            "item_code"
+def create_website_lead():
+    """Create a Lead from the public website contact form."""
+    request_json = {}
+    if hasattr(frappe.request, "get_json"):
+        request_json = frappe.request.get_json(silent=True) or {}
+
+    form_dict = frappe.local.form_dict or {}
+    data = frappe._dict({**request_json, **form_dict})
+
+    full_name = _clean_text(data.get("name"), 140)
+    company = _clean_text(data.get("company"), 140)
+    phone = _clean_text(data.get("phone"), 80)
+    email = _clean_text(data.get("email"), 140)
+    sector = _clean_text(data.get("sector") or data.get("وصف_النشاط") or data.get("custom_sector"), 140)
+    scope = _clean_text(data.get("scope") or data.get("custom_req") or data.get("need_type"), 140)
+    message = _clean_text(data.get("message") or data.get("custom_inq"), 2000)
+    users = _clean_users(data.get("users") or data.get("no_of_employees") or data.get("employee_count"))
+    source_page = _clean_text(data.get("source_page"), 255) or _clean_text(getattr(frappe.request, "path", ""), 255)
+
+    if not full_name:
+        frappe.throw(_("يرجى إدخال الاسم الكامل"), frappe.ValidationError)
+    if not email:
+        frappe.throw(_("يرجى إدخال البريد الإلكتروني"), frappe.ValidationError)
+    if not phone:
+        frappe.throw(_("يرجى إدخال رقم الجوال"), frappe.ValidationError)
+
+    if not frappe.utils.validate_email_address(email, throw=False):
+        frappe.throw(_("البريد الإلكتروني غير صالح"), frappe.ValidationError)
+
+    lead_meta = frappe.get_meta("Lead")
+
+    extra_notes = []
+    if sector and "اختر" not in sector:
+        extra_notes.append(f"Sector: {sector}")
+    if scope and "اختر" not in scope:
+        extra_notes.append(f"Need: {scope}")
+    if users:
+        extra_notes.append(f"Users: {users}")
+    if source_page:
+        extra_notes.append(f"Source Page: {source_page}")
+    if message:
+        extra_notes.append(f"Message: {message}")
+
+    lead_data = {
+        "doctype": "Lead",
+        "lead_name": full_name,
+        "company_name": company or None,
+        "email_id": email,
+        "mobile_no": phone,
+        "status": "Lead",
+    }
+
+    source_field = lead_meta.get_field("source")
+    if source_field:
+        source_value = _coerce_field_value(source_field, "Website")
+        if source_value != "":
+            lead_data["source"] = source_value
+
+    # Copy any matching form keys to Lead fields, including custom fields.
+    for field in lead_meta.fields:
+        fieldname = (field.fieldname or "").strip()
+        if not fieldname or field.fieldtype in _LAYOUT_FIELD_TYPES:
+            continue
+        if fieldname in lead_data:
+            continue
+
+        value = _coerce_field_value(field, data.get(fieldname))
+        if value != "":
+            lead_data[fieldname] = value
+
+    # Map common website keys to likely custom Lead fields.
+    alias_values = {
+        "sector": sector,
+        "industry": sector,
+        "وصف_النشاط": sector,
+        "custom_sector": sector,
+        "scope": scope,
+        "custom_req": scope,
+        "need_type": scope,
+        "custom_scope": scope,
+        "custom_need_type": scope,
+        "message": message,
+        "custom_inq": message,
+        "custom_message": message,
+        "users": users,
+        "custom_users": users,
+        "employee_count": users,
+        "no_of_employees": users,
+        "source_page": source_page,
+        "custom_source_page": source_page,
+    }
+    for fieldname, value in alias_values.items():
+        field = lead_meta.get_field(fieldname)
+        if not field or fieldname in lead_data:
+            continue
+        coerced_value = _coerce_field_value(field, value)
+        if coerced_value == "":
+            continue
+        lead_data[fieldname] = coerced_value
+
+    notes_text = "\n".join(extra_notes)
+    if notes_text:
+        notes_field = lead_meta.get_field("notes")
+        description_field = lead_meta.get_field("description")
+
+        # Some Lead setups use a child table for notes; write summary text only to text-like fields.
+        if notes_field and notes_field.fieldtype in _TEXT_LIKE_FIELD_TYPES:
+            lead_data["notes"] = notes_text
+        elif description_field and description_field.fieldtype in _TEXT_LIKE_FIELD_TYPES:
+            lead_data["description"] = notes_text
+
+    # Attempt to satisfy required custom fields from existing form values.
+    inferred_values = {
+        "sector": sector,
+        "scope": scope,
+        "message": message,
+        "users": users,
+        "company": company,
+        "phone": phone,
+        "email": email,
+    }
+    missing_required = []
+    for field in lead_meta.fields:
+        fieldname = (field.fieldname or "").strip()
+        if not fieldname or not field.reqd or field.fieldtype in _LAYOUT_FIELD_TYPES:
+            continue
+        if lead_data.get(fieldname):
+            continue
+        if field.default:
+            lead_data[fieldname] = field.default
+            continue
+
+        inferred = _infer_required_value(fieldname, inferred_values)
+        inferred_value = _coerce_field_value(field, inferred)
+        if inferred_value != "":
+            lead_data[fieldname] = inferred_value
+            continue
+
+        missing_required.append(fieldname)
+
+    if missing_required:
+        frappe.throw(
+            _("الرجاء استكمال الحقول الإلزامية في Lead: {0}").format(", ".join(missing_required)),
+            frappe.ValidationError,
         )
 
-    if not item_code:
-        return {}
-
-    website_warehouse, show_only_available = get_website_stock_settings()
-
-    actual_qty = get_item_stock_qty(item_code, website_warehouse)
-    price_list_rate = get_item_price(item_code)
+    lead = frappe.get_doc(lead_data)
+    lead.insert(ignore_permissions=True)
+    frappe.db.commit()
 
     return {
-        "item_code": item_code,
-        "actual_qty": actual_qty,
-        "in_stock": actual_qty > 0,
-        "show_only_available": show_only_available,
-        "price_list_rate": price_list_rate,
-        "price_display": f"{price_list_rate:,.2f} LE" if price_list_rate > 0 else ""
+        "ok": True,
+        "lead_name": lead.name,
+        "message": _("تم استلام طلبك بنجاح، وسنتواصل معك قريبا"),
     }
 
 
 @frappe.whitelist(allow_guest=True)
-def get_related_products(item_code=None, route=None, limit=20):
-    limit = int(limit or 20)
-
-    if not item_code and route:
-        route = route.strip("/")
-        item_code = frappe.db.get_value(
-            "Website Item",
-            {"route": route},
-            "item_code"
-        )
-
-    if not item_code:
-        return []
-
-    item_group = frappe.db.get_value("Item", item_code, "item_group")
-
-    if not item_group:
-        return []
-
-    website_warehouse, show_only_available = get_website_stock_settings()
-
-    warehouse_condition = ""
-    having_condition = ""
-
-    values = {
-        "item_code": item_code,
-        "item_group": item_group,
-        "limit": limit,
-    }
-
-    if website_warehouse:
-        warehouse_condition = "AND bin.warehouse = %(website_warehouse)s"
-        values["website_warehouse"] = website_warehouse
-
-    if show_only_available:
-        having_condition = "HAVING actual_qty > 0"
-
-    products = frappe.db.sql(
-        f"""
-        SELECT
-            wi.item_code,
-            wi.web_item_name,
-            wi.route,
-            wi.website_image,
-            i.item_group,
-            MAX(ip.price_list_rate) AS price_list_rate,
-            COALESCE(SUM(bin.actual_qty), 0) AS actual_qty
-        FROM `tabWebsite Item` wi
-        INNER JOIN `tabItem` i ON i.name = wi.item_code
-        LEFT JOIN `tabItem Price` ip
-            ON ip.item_code = wi.item_code
-            AND ip.price_list = 'Standard Selling'
-            AND ip.selling = 1
-        LEFT JOIN `tabBin` bin
-            ON bin.item_code = wi.item_code
-            {warehouse_condition}
-        WHERE
-            wi.published = 1
-            AND wi.item_code != %(item_code)s
-            AND i.item_group = %(item_group)s
-            AND i.disabled = 0
-        GROUP BY
-            wi.item_code,
-            wi.web_item_name,
-            wi.route,
-            wi.website_image,
-            i.item_group
-        {having_condition}
-        ORDER BY wi.modified DESC
-        LIMIT %(limit)s
-        """,
-        values,
-        as_dict=True,
-    )
-
-    for product in products:
-        product.price_display = ""
-        if flt(product.price_list_rate) > 0:
-            product.price_display = f"{flt(product.price_list_rate):,.2f} LE"
-
-    return products
-
-def validate_user_mobile_number(doc, method=None):
-    if not doc.is_new():
-        return
-
-    if doc.name in {"Guest", "Administrator"}:
-        return
-
-    if not (doc.mobile_no or "").strip():
-        doc.mobile_no = get_signup_mobile_number()
-
-    if not (doc.mobile_no or "").strip():
-        frappe.throw("Mobile Number is mandatory when creating a new user.")
-
-
-def get_signup_mobile_number():
-    return (
-        getattr(frappe.flags, "signup_mobile_no", None)
-        or
-        frappe.form_dict.get("mobile_no")
-        or frappe.local.form_dict.get("mobile_no")
-        or frappe.request.form.get("mobile_no")
-        or frappe.request.values.get("mobile_no")
-        or ""
-    ).strip()
-
-
-def update_customer_mobile_number(email, mobile_no):
-    if not email or not mobile_no:
-        return set()
-
-    customer_meta = frappe.get_meta("Customer")
-    customers = set(
-        frappe.get_all(
-            "Customer",
-            filters={"email_id": email},
-            pluck="name",
-        )
-    )
-
-    contact_names = frappe.get_all(
-        "Contact Email",
-        filters={"email_id": email},
-        pluck="parent",
-    )
-
-    if contact_names:
-        linked_customers = frappe.get_all(
-            "Dynamic Link",
-            filters={
-                "parenttype": "Contact",
-                "parent": ["in", contact_names],
-                "link_doctype": "Customer",
-            },
-            pluck="link_name",
-        )
-        customers.update(linked_customers)
-
-    for customer in customers:
-        values = {}
-        if customer_meta.has_field("mobile_no"):
-            values["mobile_no"] = mobile_no
-        if customer_meta.has_field("phone"):
-            values["phone"] = mobile_no
-        if values:
-            frappe.db.set_value("Customer", customer, values, update_modified=False)
-
-    return customers
-
-
-def get_default_customer_group():
-    return (
-        frappe.db.get_single_value("Selling Settings", "customer_group")
-        or frappe.defaults.get_global_default("customer_group")
-        or frappe.db.get_value("Customer Group", {"is_group": 0}, "name")
-        or "All Customer Groups"
-    )
-
-
-def get_default_territory():
-    return (
-        frappe.defaults.get_global_default("territory")
-        or frappe.db.get_value("Territory", {"is_group": 0}, "name")
-        or "All Territories"
-    )
-
-
-def ensure_signup_customer(email, full_name, mobile_no):
-    if not email or not frappe.db.exists("User", email):
-        return
-
-    if update_customer_mobile_number(email, mobile_no):
-        return
-
-    customer_meta = frappe.get_meta("Customer")
-    customer = frappe.new_doc("Customer")
-    customer.customer_name = full_name or email
-
-    if customer_meta.has_field("customer_type"):
-        customer.customer_type = "Individual"
-    if customer_meta.has_field("customer_group"):
-        customer.customer_group = get_default_customer_group()
-    if customer_meta.has_field("territory"):
-        customer.territory = get_default_territory()
-    if customer_meta.has_field("email_id"):
-        customer.email_id = email
-    if customer_meta.has_field("mobile_no"):
-        customer.mobile_no = mobile_no
-    if customer_meta.has_field("phone"):
-        customer.phone = mobile_no
-
-    customer.insert(ignore_permissions=True)
-
-
-def update_new_customer_mobile_number(doc, method=None):
-    if not frappe.get_meta("Customer").has_field("mobile_no"):
-        return
-
-    email = (doc.get("email_id") or "").strip()
-    if not email:
-        return
-
-    mobile_no = (frappe.db.get_value("User", email, "mobile_no") or "").strip()
-    if mobile_no and not (doc.get("mobile_no") or "").strip():
-        frappe.db.set_value("Customer", doc.name, "mobile_no", mobile_no, update_modified=False)
-
-
-@frappe.whitelist(allow_guest=True)
-def sign_up_with_mobile(email=None, full_name=None, redirect_to=None, mobile_no=None):
-    mobile_no = (mobile_no or get_signup_mobile_number()).strip()
-    email = (email or frappe.form_dict.get("email") or "").strip()
-    full_name = (full_name or frappe.form_dict.get("full_name") or "").strip()
-    redirect_to = redirect_to or frappe.form_dict.get("redirect_to")
-
-    if not mobile_no:
-        frappe.throw("Mobile Number is mandatory when creating a new user.")
-
-    frappe.flags.signup_mobile_no = mobile_no
+def get_partner_logos(limit=60):
+    """Return partner logos from published Blog Posts in category `partner`."""
+    section_text = _get_partner_section_text()
 
     try:
-        from frappe.core.doctype.user.user import sign_up as frappe_sign_up
+        limit_value = int(limit)
+    except (TypeError, ValueError):
+        limit_value = 60
 
-        response = frappe_sign_up(email=email, full_name=full_name, redirect_to=redirect_to)
-    except TypeError:
-        from frappe.www.login import sign_up as frappe_sign_up
+    limit_value = max(1, min(limit_value, 200))
 
-        response = frappe_sign_up()
+    try:
+        blog_meta = frappe.get_meta("Blog Post")
 
-    if mobile_no and email and frappe.db.exists("User", email):
-        frappe.db.set_value("User", email, "mobile_no", mobile_no, update_modified=False)
-        ensure_signup_customer(email, full_name, mobile_no)
+        fields = ["name"]
+        for fieldname in ("title", "route", "content", "blog_category", "published"):
+            if blog_meta.get_field(fieldname):
+                fields.append(fieldname)
 
-    return response
+        available_image_fields = [
+            fieldname for fieldname in _BLOG_IMAGE_FIELD_CANDIDATES if blog_meta.get_field(fieldname)
+        ]
+        fields.extend(available_image_fields)
+
+        if not blog_meta.get_field("blog_category"):
+            return {
+                "items": [],
+                "kicker": section_text["kicker"],
+                "title": section_text["title"],
+            }
+
+        filters = [["blog_category", "in", ["partner", "Partner"]]]
+        if blog_meta.get_field("published"):
+            filters.insert(0, ["published", "=", 1])
+
+        order_by = "published_on desc, creation desc" if blog_meta.get_field("published_on") else "creation desc"
+
+        posts = frappe.get_all(
+            "Blog Post",
+            filters=filters,
+            fields=fields,
+            order_by=order_by,
+            limit_page_length=limit_value,
+            ignore_permissions=True,
+        )
+
+        if not posts:
+            relaxed_filters = [["blog_category", "like", "%partner%"]]
+            if blog_meta.get_field("published"):
+                relaxed_filters.insert(0, ["published", "=", 1])
+
+            posts = frappe.get_all(
+                "Blog Post",
+                filters=relaxed_filters,
+                fields=fields,
+                order_by=order_by,
+                limit_page_length=limit_value,
+                ignore_permissions=True,
+            )
+    except Exception:
+        frappe.log_error(frappe.get_traceback(), "c4web.get_partner_logos")
+        return {
+            "items": [],
+            "kicker": section_text["kicker"],
+            "title": section_text["title"],
+        }
+
+    items = []
+    seen_urls = set()
+
+    for post in posts:
+        logo_url = ""
+
+        for fieldname in available_image_fields:
+            logo_url = _normalize_web_url(post.get(fieldname))
+            if logo_url:
+                break
+
+        if not logo_url:
+            logo_url = _extract_first_image_from_html(post.get("content"))
+
+        if not logo_url or logo_url in seen_urls:
+            continue
+
+        seen_urls.add(logo_url)
+
+        route = _clean_text(post.get("route"), 255)
+        if route and not route.startswith("/"):
+            route = f"/{route}"
+
+        items.append(
+            {
+                "title": _clean_text(post.get("title"), 140) or "partner",
+                "route": route or "/blog/partner",
+                "logo_url": logo_url,
+            }
+        )
+
+    return {
+        "items": items,
+        "kicker": section_text["kicker"],
+        "title": section_text["title"],
+    }

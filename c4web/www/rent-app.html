@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rent App | نظام سحابي لإدارة عمليات التأجير</title>
+    <meta
+      name="description"
+      content="Rent App من Connect 4: منصة سحابية متخصصة لإدارة الحجوزات، التوفر، العقود، الفوترة، المرتجعات، والتحصيل لشركات التأجير متعددة الفروع."
+    />
+    <!-- SEO: Auto Meta Start -->
+    <link rel="icon" href="/files/logo-erp.png" type="image/png" />
+    <link rel="canonical" href="https://connect4systems.com/rent-app" />
+    <link rel="alternate" hreflang="ar-eg" href="https://connect4systems.com/rent-app" />
+    <link rel="alternate" hreflang="x-default" href="https://connect4systems.com/rent-app" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Connect 4 Systems" />
+    <meta name="keywords" content="ERP, CRM, AI, Digital Transformation, Frappe, ERPNext, Connect 4 Systems" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Connect 4 Systems" />
+    <meta property="og:title" content="Rent App | نظام سحابي لإدارة عمليات التأجير" />
+    <meta property="og:description" content="Rent App من Connect 4: منصة سحابية متخصصة لإدارة الحجوزات، التوفر، العقود، الفوترة، المرتجعات، والتحصيل لشركات التأجير متعددة الفروع." />
+    <meta property="og:url" content="https://connect4systems.com/rent-app" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80" />
+    <meta property="og:image:alt" content="Rent App | نظام سحابي لإدارة عمليات التأجير" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rent App | نظام سحابي لإدارة عمليات التأجير" />
+    <meta name="twitter:description" content="Rent App من Connect 4: منصة سحابية متخصصة لإدارة الحجوزات، التوفر، العقود، الفوترة، المرتجعات، والتحصيل لشركات التأجير متعددة الفروع." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80" />
+    <script type="application/ld+json">
+      {
+          "@context":  "https://schema.org",
+          "@graph":  [
+                         {
+                             "@type":  "Organization",
+                             "@id":  "https://connect4systems.com/#organization",
+                             "name":  "Connect 4 Systems",
+                             "url":  "https://connect4systems.com/",
+                             "logo":  {
+                                          "@type":  "ImageObject",
+                                          "url":  "https://connect4systems.com/files/logo-erp.png"
+                                      },
+                             "sameAs":  [
+                                            "https://www.facebook.com/connect4egypt",
+                                            "https://www.linkedin.com/company/7695997/",
+                                            "https://www.tiktok.com/@connect4systems",
+                                            "https://www.youtube.com/@ConnectSystems-ERP"
+                                        ]
+                         },
+                         {
+                             "@type":  "WebPage",
+                             "@id":  "https://connect4systems.com/rent-app#webpage",
+                             "url":  "https://connect4systems.com/rent-app",
+                             "name":  "Rent App | نظام سحابي لإدارة عمليات التأجير",
+                             "description":  "Rent App من Connect 4: منصة سحابية متخصصة لإدارة الحجوزات، التوفر، العقود، الفوترة، المرتجعات، والتحصيل لشركات التأجير متعددة الفروع.",
+                             "inLanguage":  "ar-EG",
+                             "isPartOf":  {
+                                              "@type":  "WebSite",
+                                              "@id":  "https://connect4systems.com/#website",
+                                              "url":  "https://connect4systems.com/",
+                                              "name":  "Connect 4 Systems"
+                                          },
+                             "publisher":  {
+                                               "@id":  "https://connect4systems.com/#organization"
+                                           }
+                         }
+                     ]
+      }
+    </script>
+    <!-- SEO: Auto Meta End -->
+    <link rel="stylesheet" href="/assets/c4web/css/style.css" />
+    <script defer src="/assets/c4web/js/app.js"></script>
+  </head>
+  <body>
+    <div class="progress-line" data-scroll-progress></div>
+
+    <header class="site-header">
+      <div class="container header-wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <img
+              class="brand-logo"
+              src="{{ c4_logo_url or '/files/logo-erp.png' }}"
+              alt="Connect 4 Systems Logo"
+              onerror="this.onerror=null;this.src='/files/logo.png';"
+            />
+          </span>
+          <span class="brand-title">
+            <strong>Connect 4 Systems</strong>
+            <small>ERP, AI, Business Development</small>
+          </span>
+        </a>
+
+        <button class="menu-button" type="button" aria-label="فتح القائمة" aria-expanded="false" data-menu-toggle>
+          ☰
+        </button>
+
+        <div class="nav-panel" data-nav-shell>
+          <nav class="main-nav" aria-label="القائمة الرئيسية">
+            <a class="c4-nav-link" href="/">الرئيسية</a>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">البرامج السحابية</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/hr">ادارة الموارد البشرية</a>
+                <a href="/rent-app">ادارة الايجارات</a>
+                <a href="/finance-management">الادارة المالية</a>
+                <a href="/trade">إدارة المبيعات</a>
+                <a href="/crm">إدارة خدمة العملاء</a>
+                <a href="/inventory-management">إدارة المخازن</a>
+                <a href="/manufacturing-management">إدارة التصنيع</a>
+                <a href="/asset-management">إدارة الأصول</a>
+                <a href="/procurement-management">إدارة المشتريات</a>
+                <a href="/construction-management">إدارة المقاولات</a>
+              </div>
+            </div>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">الحلول الكاملة</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/retail-system">المحلات التجارية</a>
+                <a href="/trade">الشركات التجارية</a>
+                <a href="/rental-companies">شركات التأجير</a>
+                <a href="/factory">المصانع</a>
+                <a href="/construction">المقاولات</a>
+              </div>
+            </div>
+
+            <a class="c4-nav-link" href="/catalog">خطط الأسعار</a>
+          </nav>
+          <a class="btn btn-primary" href="/contact">طلب عرض</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-tight">
+        <div class="container hero-grid">
+          <div class="reveal">
+            <div class="hero-tag-row">
+              <span class="badge badge-brand">Rent Operation System</span>
+              <span class="badge badge-ai">Multi-Branch Cloud App</span>
+            </div>
+            <h1 class="hero-title">Rent App: منصة سحابية توحد دورة التأجير من الحجز حتى الإرجاع</h1>
+            <p class="hero-text">
+              عندما تتوزع عمليات التأجير بين ملفات وأدوات منفصلة، تبدأ الأرباح بالتسرب. يجمع Rent App
+              الحجوزات، التوفر، العقود، الفواتير، والمدفوعات في نظام واحد يرفع سرعة التشغيل ويقلل الأخطاء اليومية.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/contact">احجز عرضا توضيحيا</a>
+              <a class="btn btn-outline" href="#rent-features">استكشف المزايا</a>
+            </div>
+            <div class="metric-row">
+              <article class="stat-card">
+                <strong data-counter="35" data-suffix="%">0</strong>
+                <span>تقليل التعارض في الحجوزات</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="42" data-suffix="%">0</strong>
+                <span>تسريع دورة الفوترة والتحصيل</span>
+              </article>
+              <article class="stat-card">
+                <strong data-counter="28" data-suffix="%">0</strong>
+                <span>رفع الاستفادة من الأصول</span>
+              </article>
+            </div>
+          </div>
+
+          <aside class="hero-visual reveal" data-float="9">
+            <img
+              class="hero-main-image"
+              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80"
+              alt="Rent App dashboard"
+            />
+            <div class="hero-overlay">
+              <div class="hero-panel">
+                <h3>تشغيل تأجير لحظي</h3>
+                <p>اعرف في أي لحظة ما هو متاح، محجوز، مؤجر، أو تحت الصيانة عبر كل الفروع.</p>
+              </div>
+              <div class="hero-panel">
+                <h3>جاهز للتوسع</h3>
+                <p>من فرع واحد إلى شبكة فروع، مع صلاحيات واضحة وتدفقات اعتماد موحدة.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="rent-features" class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">قدرات رئيسية</span>
+            <h2>كل ما تحتاجه عمليات التأجير في منصة واحدة</h2>
+          </div>
+
+          <div class="cards cards-4">
+            <article class="card reveal">
+              <h3>التوفر المباشر والحجوزات</h3>
+              <p>رؤية فورية لحالة كل أصل: متاح، محجوز، مؤجر، أو قيد الصيانة.</p>
+            </article>
+            <article class="card reveal">
+              <h3>تسعير تأجير مرن</h3>
+              <p>تسعير يومي/أسبوعي/شهري مع إضافات اختيارية وخصومات حسب المدة.</p>
+            </article>
+            <article class="card reveal">
+              <h3>العقود والفواتير والضرائب</h3>
+              <p>إنشاء تلقائي لمستندات التأجير مع حساب العربون والتسوية النهائية.</p>
+            </article>
+            <article class="card reveal">
+              <h3>التسليم والإرجاع والفحص</h3>
+              <p>توثيق حالة الأصل، أضرار الإرجاع، وتأخيرات التسليم بدون أوراق يدوية.</p>
+            </article>
+            <article class="card reveal">
+              <h3>المدفوعات والمستحقات</h3>
+              <p>تسجيل مدفوعات مرن وتنبيهات استحقاق لتحسين التدفق النقدي.</p>
+            </article>
+            <article class="card reveal">
+              <h3>رؤية موحدة للفروع</h3>
+              <p>لوحة مركزية تجمع الأداء التشغيلي والمالي عبر جميع المواقع.</p>
+            </article>
+            <article class="card reveal">
+              <h3>تنبيهات ذكية</h3>
+              <p>إنذارات للتأخير، انتهاء العقود، وضعف الاستفادة من الأصول.</p>
+            </article>
+            <article class="card reveal">
+              <h3>تقارير تنفيذية</h3>
+              <p>مؤشرات أداء واضحة للإدارة عن الربحية، الإشغال، والتحصيل.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container tab-shell reveal">
+          <div class="tab-nav" role="tablist" aria-label="حالات الاستخدام">
+            <button class="tab-button active" type="button" data-tab-target="ops" aria-selected="true">التشغيل اليومي</button>
+            <button class="tab-button" type="button" data-tab-target="finance" aria-selected="false">المالية والتحصيل</button>
+            <button class="tab-button" type="button" data-tab-target="branches" aria-selected="false">إدارة الفروع</button>
+          </div>
+
+          <article class="tab-panel active" data-tab-panel="ops">
+            <figure class="tab-media">
+              <img
+                src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80"
+                alt="عمليات التأجير"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>من طلب العميل إلى تسليم الأصل خلال دقائق</h3>
+              <p>واجهة تشغيل سريعة للبحث عن التوفر، تأكيد الحجز، وإصدار العقد بدون تكرار إدخال.</p>
+              <ul class="list-check">
+                <li>تقليل الحجز المزدوج عبر التحقق اللحظي من التوفر.</li>
+                <li>إجراءات تسليم/استلام موحدة لكل فريق.</li>
+                <li>سجل تاريخي كامل لكل أصل مؤجر.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="finance">
+            <figure class="tab-media">
+              <img
+                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80"
+                alt="فوترة وتحصيل"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>فوترة أدق وتحصيل أسرع</h3>
+              <p>مواءمة بين التشغيل والمالية من خلال فواتير تأجير تلقائية ومتابعة مستحقات استباقية.</p>
+              <ul class="list-check">
+                <li>إدارة العربون والمرتجعات الجزئية والتسويات النهائية.</li>
+                <li>تنبيهات تواريخ الاستحقاق والتأخر في السداد.</li>
+                <li>تقارير أعمار الديون وربحية كل عقد.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="tab-panel" data-tab-panel="branches">
+            <figure class="tab-media">
+              <img
+                src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80"
+                alt="إدارة فروع التأجير"
+              />
+            </figure>
+            <div class="tab-content">
+              <h3>لوحة قيادة موحدة عبر جميع الفروع</h3>
+              <p>تحكم مركزي في الأصول، العقود، والأداء لكل فرع مع صلاحيات دقيقة لكل دور.</p>
+              <ul class="list-check">
+                <li>مقارنة أداء الفروع في الزمن الحقيقي.</li>
+                <li>نقل الأصول بين المواقع مع تتبع كامل.</li>
+                <li>سياسات تشغيل موحدة قابلة للتخصيص لكل منطقة.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">منهجية التنفيذ</span>
+            <h2>من الاستفسار إلى الإرجاع في 3 خطوات واضحة</h2>
+          </div>
+          <div class="timeline reveal">
+            <article class="timeline-item">
+              <h4>1) إعداد الأصول وقواعد التأجير</h4>
+              <p>تعريف عناصر التأجير، الأسعار، الشروط، وإتاحة الفروع ضمن إعداد واحد.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>2) تأكيد الحجوزات وإصدار العقود</h4>
+              <p>إنشاء العقود والفواتير الابتدائية خلال دقائق مع ضوابط موافقة مرنة.</p>
+            </article>
+            <article class="timeline-item">
+              <h4>3) إغلاق العملية بثقة</h4>
+              <p>تسجيل الإرجاع، احتساب الفروقات، وإصدار الفاتورة النهائية تلقائيا.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container kpi-band reveal">
+          <div>
+            <h3>مصمم لتحقيق أثر تشغيلي قابل للقياس</h3>
+            <p>
+              الفرق التي تعتمد Rent App عادة تلاحظ فوترة أسرع، تعارضات أقل، ورؤية أفضل للأصول والتدفقات النقدية.
+            </p>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-item">
+              <strong data-counter="80" data-suffix="%">0</strong>
+              <span>جاهزية تشغيلية خلال الأسابيع الأولى</span>
+            </article>
+            <article class="kpi-item">
+              <strong data-counter="46" data-suffix="%">0</strong>
+              <span>تحسن سرعة التحصيل</span>
+            </article>
+            <article class="kpi-item">
+              <strong data-counter="31" data-suffix="%">0</strong>
+              <span>خفض النزاعات عند الإرجاع</span>
+            </article>
+            <article class="kpi-item">
+              <strong data-counter="24" data-suffix="/7">0</strong>
+              <span>رؤية تشغيلية مستمرة عبر الفروع</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="faq reveal">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" data-accordion-target="rent-faq-1">
+                <span>هل يدعم النظام إدارة العربون والمرتجعات الجزئية؟</span>
+                <span>+</span>
+              </button>
+              <div class="accordion-panel" id="rent-faq-1">
+                <p>نعم، يدعم العربون، المرتجعات الجزئية، والغرامات أو التسويات النهائية حسب قواعدك.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" data-accordion-target="rent-faq-2">
+                <span>هل يعمل Rent App مع عدة فروع؟</span>
+                <span>+</span>
+              </button>
+              <div class="accordion-panel" id="rent-faq-2">
+                <p>نعم، يمكنك إدارة المخزون والحجوزات والأداء عبر جميع الفروع من لوحة تحكم واحدة.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" data-accordion-target="rent-faq-3">
+                <span>هل يمكن تطبيق مدد تأجير مخصصة وإضافات اختيارية؟</span>
+                <span>+</span>
+              </button>
+              <div class="accordion-panel" id="rent-faq-3">
+                <p>يمكنك إعداد تسعير يومي أو أسبوعي أو شهري، مع مدد خاصة وإضافات اختيارية لكل أصل أو طلب.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="cta-band reveal">
+            <div>
+              <h3>شغّل أعمال التأجير بذكاء أكبر وبجهد تشغيلي أقل</h3>
+              <p>احجز جلسة مخصصة لنوضح كيف يتوافق Rent App مع سير عمل التأجير في شركتك.</p>
+            </div>
+            <a class="btn btn-accent" href="/contact">جدولة عرض توضيحي</a>
+          </div>
+        </div>
+      </section>
+          <!-- lead-request-section:start -->
+      <section class="section section-tight" id="lead-request">
+        <div class="container contact-layout">
+          <article class="form-card reveal">
+            <h2>أرسل طلبك الآن</h2>
+            <p class="text-muted">املأ النموذج التالي وسيتواصل معك فريقنا خلال يوم عمل.</p>
+
+            <form class="form-grid" data-lead-form novalidate>
+              <div class="field">
+                <label for="leadreq-name">الاسم</label>
+                <input id="leadreq-name" name="name" type="text" placeholder="الاسم الكامل" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-company">اسم الشركة</label>
+                <input id="leadreq-company" name="company" type="text" placeholder="اسم الشركة" />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-users">عدد الموظفين</label>
+                <input id="leadreq-users" name="users" type="number" min="1" step="1" placeholder="مثال: 25" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-phone">رقم الجوال</label>
+                <input id="leadreq-phone" name="phone" type="tel" placeholder="+20" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-email">البريد الإلكتروني</label>
+                <input id="leadreq-email" name="email" type="email" placeholder="name@company.com" required />
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-sector">القطاع</label>
+                <select id="leadreq-sector" name="sector">
+                  <option>اختر القطاع</option>
+                  <option>تجارة وتوزيع</option>
+                  <option>تجزئة ونقاط بيع</option>
+                  <option>مصانع وإنتاج</option>
+                  <option>مقاولات وإنشاءات</option>
+                  <option>تأجير وخدمات ميدانية</option>
+                  <option>خدمات مهنية</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-scope">نوع الاحتياج</label>
+                <select id="leadreq-scope" name="scope">
+                  <option>اختر نوع الاحتياج</option>
+                  <option>تطبيق ERP جديد</option>
+                  <option>تطوير نظام قائم</option>
+                  <option>مشروع CRM</option>
+                  <option>أتمتة وذكاء اصطناعي</option>
+                  <option>دعم وتشغيل مستمر</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-message">وصف مختصر للتحدي الحالي</label>
+                <textarea id="leadreq-message" name="message" placeholder="ما المشكلة التي ترغب في حلها؟" required></textarea>
+              </div>
+
+              <div class="field field-full">
+                <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+              </div>
+
+              <div class="field field-full">
+                <p class="form-status" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+          </article>
+
+          <aside class="info-card reveal">
+            <h3>تواصل مباشر</h3>
+            <ul class="list-check">
+              <li>استجابة مبدئية خلال 24 ساعة.</li>
+              <li>تقييم احتياج حسب القطاع وحجم الفريق.</li>
+              <li>خارطة طريق تنفيذية واضحة قبل التعاقد.</li>
+            </ul>
+
+            <div class="hero-actions">
+              <a class="btn btn-accent" href="/contact">عرض صفحة التواصل</a>
+              <a class="btn btn-outline" href="https://wa.me/201006676145">تواصل واتساب</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- lead-request-section:end -->
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h4>Rent App</h4>
+          <p>تطبيق سحابي متخصص لإدارة عمليات التأجير بكفاءة تشغيلية ومالية أعلى.</p>
+          <img src="https://rentos.live/files/lo.png" alt="Rent App Logo" style="margin-top: 10px; max-width: 140px; height: auto;" />
+        </div>
+
+        <div class="footer-col">
+          <h4>روابط رئيسية</h4>
+          <ul>
+            <li><a href="/solution-template">حلولنا</a></li>
+            <li><a href="/catalog">المنتجات</a></li>
+            <li><a href="/blog-list">المدونة</a></li>
+            <li><a href="/about">من نحن</a></li>
+            <li><a href="/contact">اتصل بنا</a></li>
+            <li><a href="/jobs">الوظائف</a></li>
+            <li><a href="/terms">الشروط والأحكام</a></li>
+            <li><a href="/app">تسجيل الدخول</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>حلول مرتبطة</h4>
+          <ul>
+            <li><a href="/rental-companies">شركات التأجير</a></li>
+            <li><a href="/trade">التجارة</a></li>
+            <li><a href="/retail-system">التجزئة</a></li>
+            <li><a href="/crm">CRM</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>تواصل مباشر</h4>
+          <ul>
+            <li>+20 111 999 7599</li>
+            <li>info@connect4systems.com</li>
+            <li>Mokattam, Cairo</li>
+            <li><a href="https://wa.me/201006676145">واتساب الأعمال</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© <span data-current-year></span> Connect 4 Systems</span>
+        <span>Rent App Page</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إدارة الأصول | ERPNext v15</title>
+    <meta
+      name="description"
+      content="صفحة إدارة الأصول من كونكت 4: دورة حياة الأصل في ERPNext v15 من الشراء، الرسملة، الإهلاك، الصيانة، النقل، حتى الاستبعاد." 
+    />
+    <!-- SEO: Auto Meta Start -->
+    <link rel="icon" href="/files/logo-erp.png" type="image/png" />
+    <link rel="canonical" href="https://connect4systems.com/asset-management" />
+    <link rel="alternate" hreflang="ar-eg" href="https://connect4systems.com/asset-management" />
+    <link rel="alternate" hreflang="x-default" href="https://connect4systems.com/asset-management" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Connect 4 Systems" />
+    <meta name="keywords" content="ERP, CRM, AI, Digital Transformation, Frappe, ERPNext, Connect 4 Systems" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Connect 4 Systems" />
+    <meta property="og:title" content="إدارة الأصول | ERPNext v15" />
+    <meta property="og:description" content="صفحة إدارة الأصول من كونكت 4: دورة حياة الأصل في ERPNext v15 من الشراء، الرسملة، الإهلاك، الصيانة، النقل، حتى الاستبعاد." />
+    <meta property="og:url" content="https://connect4systems.com/asset-management" />
+    <meta property="og:image" content="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+    <meta property="og:image:alt" content="إدارة الأصول | ERPNext v15" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="إدارة الأصول | ERPNext v15" />
+    <meta name="twitter:description" content="صفحة إدارة الأصول من كونكت 4: دورة حياة الأصل في ERPNext v15 من الشراء، الرسملة، الإهلاك، الصيانة، النقل، حتى الاستبعاد." />
+    <meta name="twitter:image" content="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+    <script type="application/ld+json">
+      {
+          "@context":  "https://schema.org",
+          "@graph":  [
+                         {
+                             "@type":  "Organization",
+                             "@id":  "https://connect4systems.com/#organization",
+                             "name":  "Connect 4 Systems",
+                             "url":  "https://connect4systems.com/",
+                             "logo":  {
+                                          "@type":  "ImageObject",
+                                          "url":  "https://connect4systems.com/files/logo-erp.png"
+                                      },
+                             "sameAs":  [
+                                            "https://www.facebook.com/connect4egypt",
+                                            "https://www.linkedin.com/company/7695997/",
+                                            "https://www.tiktok.com/@connect4systems",
+                                            "https://www.youtube.com/@ConnectSystems-ERP"
+                                        ]
+                         },
+                         {
+                             "@type":  "WebPage",
+                             "@id":  "https://connect4systems.com/asset-management#webpage",
+                             "url":  "https://connect4systems.com/asset-management",
+                             "name":  "إدارة الأصول | ERPNext v15",
+                             "description":  "صفحة إدارة الأصول من كونكت 4: دورة حياة الأصل في ERPNext v15 من الشراء، الرسملة، الإهلاك، الصيانة، النقل، حتى الاستبعاد.",
+                             "inLanguage":  "ar-EG",
+                             "isPartOf":  {
+                                              "@type":  "WebSite",
+                                              "@id":  "https://connect4systems.com/#website",
+                                              "url":  "https://connect4systems.com/",
+                                              "name":  "Connect 4 Systems"
+                                          },
+                             "publisher":  {
+                                               "@id":  "https://connect4systems.com/#organization"
+                                           }
+                         }
+                     ]
+      }
+    </script>
+    <!-- SEO: Auto Meta End -->
+    <link rel="stylesheet" href="/assets/c4web/css/style.css" />
+    <script defer src="/assets/c4web/js/app.js"></script>
+  </head>
+  <body>
+    <div class="progress-line" data-scroll-progress></div>
+
+    <header class="site-header">
+      <div class="container header-wrap">
+        <a class="brand" href="/">
+          <span class="brand-mark">
+            <img
+              class="brand-logo"
+              src="{{ c4_logo_url or '/files/logo-erp.png' }}"
+              alt="Connect 4 Systems Logo"
+              onerror="this.onerror=null;this.src='/files/logo.png';"
+            />
+          </span>
+          <span class="brand-title">
+            <strong>Connect 4 Systems</strong>
+            <small>ERP, AI, Business Development</small>
+          </span>
+        </a>
+
+        <button class="menu-button" type="button" aria-label="فتح القائمة" aria-expanded="false" data-menu-toggle>
+          ☰
+        </button>
+
+        <div class="nav-panel" data-nav-shell>
+          <nav class="main-nav" aria-label="القائمة الرئيسية">
+            <a class="c4-nav-link" href="/">الرئيسية</a>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">البرامج السحابية</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/hr">ادارة الموارد البشرية</a>
+                <a href="/rent-app">ادارة الايجارات</a>
+                <a href="/finance-management">الادارة المالية</a>
+                <a href="/trade">إدارة المبيعات</a>
+                <a href="/crm">إدارة خدمة العملاء</a>
+                <a href="/inventory-management">إدارة المخازن</a>
+                <a href="/manufacturing-management">إدارة التصنيع</a>
+                <a href="/asset-management">إدارة الأصول</a>
+                <a href="/procurement-management">إدارة المشتريات</a>
+                <a href="/construction-management">إدارة المقاولات</a>
+              </div>
+            </div>
+
+            <div class="c4-nav-dropdown" data-nav-dropdown>
+              <button class="c4-nav-toggle" type="button" aria-expanded="false">الحلول الكاملة</button>
+              <div class="c4-dropdown-menu" role="menu">
+                <a href="/retail-system">المحلات التجارية</a>
+                <a href="/trade">الشركات التجارية</a>
+                <a href="/rental-companies">شركات التأجير</a>
+                <a href="/factory">المصانع</a>
+                <a href="/construction">المقاولات</a>
+              </div>
+            </div>
+
+            <a class="c4-nav-link" href="/catalog">خطط الأسعار</a>
+          </nav>
+          <a class="btn btn-primary" href="/contact">طلب عرض</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-tight">
+        <div class="container hero-grid">
+          <div class="reveal">
+            <div class="hero-tag-row">
+              <span class="badge badge-brand">Asset Management</span>
+              <span class="badge badge-ai">ERPNext v15</span>
+            </div>
+            <h1 class="hero-title">إدارة الأصول من الشراء حتى الإهلاك والاستبعاد</h1>
+            <p class="hero-text">
+              مع ERPNext v15 نقدر نبني دورة حياة أصل متكاملة: تعريف وتصنيف الأصول، الربط بالمشتريات،
+              بدء الإهلاك تلقائيا، إدارة الصيانة والنقل بين المواقع، ثم الاستبعاد بقيد مالي صحيح.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="/contact">احجز عرض إدارة الأصول</a>
+              <a class="btn btn-outline" href="#asset-features">مزايا الوحدة</a>
+            </div>
+          </div>
+
+          <aside class="hero-visual reveal" data-float="8">
+            <img class="hero-main-image" src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="إدارة الأصول" />
+            <div class="hero-overlay">
+              <div class="hero-panel">
+                <h3>Asset Register</h3>
+                <p>سجل أصل موحد يتضمن الحالة، الموقع، المسؤول، والقيمة الدفترية.</p>
+              </div>
+              <div class="hero-panel">
+                <h3>Depreciation Engine</h3>
+                <p>جداول إهلاك تلقائية مرتبطة مباشرة بالحسابات المالية.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="asset-features" class="section section-tight">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="kicker">وظائف ERPNext v15 للأصول</span>
+            <h2>رقابة كاملة على أصول الشركة</h2>
+          </div>
+          <div class="cards cards-4">
+            <article class="card reveal">
+              <h3>Asset Capitalization</h3>
+              <p>إنشاء الأصل من فاتورة الشراء أو القيود الافتتاحية مع تصنيف واضح.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Depreciation Schedules</h3>
+              <p>طرق إهلاك متعددة مع قيود تلقائية ومراجعة دورية للقيم الدفترية.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Asset Movement</h3>
+              <p>نقل الأصول بين الفروع والمواقع مع سجل تاريخي كامل.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Maintenance & Disposal</h3>
+              <p>أوامر صيانة دورية وإجراءات استبعاد أو بيع أصل بمرجعية مالية دقيقة.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container timeline reveal">
+          <article class="timeline-item">
+            <h4>1) تعريف الأصل</h4>
+            <p>تسجيل بيانات الأصل وربطه بالتصنيف المناسب.</p>
+          </article>
+          <article class="timeline-item">
+            <h4>2) الرسملة والإهلاك</h4>
+            <p>اعتماد تكلفة الأصل وبناء جدول إهلاك متوافق مع السياسة المالية.</p>
+          </article>
+          <article class="timeline-item">
+            <h4>3) التشغيل والصيانة</h4>
+            <p>متابعة الحالة الفنية، الأعطال، وتكاليف الصيانة.</p>
+          </article>
+          <article class="timeline-item">
+            <h4>4) الاستبعاد أو البيع</h4>
+            <p>إغلاق دورة الأصل مع قيود أرباح/خسائر الاستبعاد.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="container">
+          <div class="cta-band reveal">
+            <div>
+              <h3>ارفع كفاءة إدارة الأصول في مؤسستك</h3>
+              <p>ننفذ الوحدة بكامل إعداداتها المحاسبية والتشغيلية وفق هيكل شركتك.</p>
+            </div>
+            <a class="btn btn-accent" href="/contact">ابدأ إدارة الأصول</a>
+          </div>
+        </div>
+      </section>
+          <!-- lead-request-section:start -->
+      <section class="section section-tight" id="lead-request">
+        <div class="container contact-layout">
+          <article class="form-card reveal">
+            <h2>أرسل طلبك الآن</h2>
+            <p class="text-muted">املأ النموذج التالي وسيتواصل معك فريقنا خلال يوم عمل.</p>
+
+            <form class="form-grid" data-lead-form novalidate>
+              <div class="field">
+                <label for="leadreq-name">الاسم</label>
+                <input id="leadreq-name" name="name" type="text" placeholder="الاسم الكامل" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-company">اسم الشركة</label>
+                <input id="leadreq-company" name="company" type="text" placeholder="اسم الشركة" />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-users">عدد الموظفين</label>
+                <input id="leadreq-users" name="users" type="number" min="1" step="1" placeholder="مثال: 25" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-phone">رقم الجوال</label>
+                <input id="leadreq-phone" name="phone" type="tel" placeholder="+20" required />
+              </div>
+
+              <div class="field">
+                <label for="leadreq-email">البريد الإلكتروني</label>
+                <input id="leadreq-email" name="email" type="email" placeholder="name@company.com" required />
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-sector">القطاع</label>
+                <select id="leadreq-sector" name="sector">
+                  <option>اختر القطاع</option>
+                  <option>تجارة وتوزيع</option>
+                  <option>تجزئة ونقاط بيع</option>
+                  <option>مصانع وإنتاج</option>
+                  <option>مقاولات وإنشاءات</option>
+                  <option>تأجير وخدمات ميدانية</option>
+                  <option>خدمات مهنية</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-scope">نوع الاحتياج</label>
+                <select id="leadreq-scope" name="scope">
+                  <option>اختر نوع الاحتياج</option>
+                  <option>تطبيق ERP جديد</option>
+                  <option>تطوير نظام قائم</option>
+                  <option>مشروع CRM</option>
+                  <option>أتمتة وذكاء اصطناعي</option>
+                  <option>دعم وتشغيل مستمر</option>
+                </select>
+              </div>
+
+              <div class="field field-full">
+                <label for="leadreq-message">وصف مختصر للتحدي الحالي</label>
+                <textarea id="leadreq-message" name="message" placeholder="ما المشكلة التي ترغب في حلها؟" required></textarea>
+              </div>
+
+              <div class="field field-full">
+                <button class="btn btn-primary" type="submit">إرسال الطلب</button>
+              </div>
+
+              <div class="field field-full">
+                <p class="form-status" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+          </article>
+
+          <aside class="info-card reveal">
+            <h3>تواصل مباشر</h3>
+            <ul class="list-check">
+              <li>استجابة مبدئية خلال 24 ساعة.</li>
+              <li>تقييم احتياج حسب القطاع وحجم الفريق.</li>
+              <li>خارطة طريق تنفيذية واضحة قبل التعاقد.</li>
+            </ul>
+
+            <div class="hero-actions">
+              <a class="btn btn-accent" href="/contact">عرض صفحة التواصل</a>
+              <a class="btn btn-outline" href="https://wa.me/201006676145">تواصل واتساب</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <!-- lead-request-section:end -->
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <h4>Asset Management</h4>
+          <p>دورة أصل دقيقة تربط المحاسبة بالتشغيل والصيانة.</p>
+        </div>
+        <div class="footer-col">
+          <h4>حلول مرتبطة</h4>
+          <ul>
+            <li><a href="/finance-management">الادارة المالية</a></li>
+            <li><a href="/inventory-management">إدارة المخازن</a></li>
+            <li><a href="/procurement-management">إدارة المشتريات</a></li>
+            <li><a href="/about">عملائنا</a></li>
+            <li><a href="/contact">تواصل</a></li>
+            <li><a href="/blog-list">المدونة</a></li>
+            <li><a href="/jobs">الوظائف</a></li>
+            <li><a href="/terms">الشروط والأحكام</a></li>
+            <li><a href="/app">تسجيل الدخول</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصل</h4>
+          <ul>
+            <li>+20 111 999 7599</li>
+            <li>info@connect4systems.com</li>
+            <li>Mokattam, Cairo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span data-current-year></span> Connect 4 Systems</span>
+        <span>Asset Management Page</span>
+      </div>
+    </footer>
+  </body>
+</html>
+

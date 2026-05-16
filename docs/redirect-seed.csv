@@ -1,0 +1,26 @@
+old_url,new_url,reason
+/home,/,duplicate home endpoint
+/index-ar,/,duplicate home endpoint
+/index-en,/,duplicate home endpoint
+/system,/,legacy landing page
+/system2,/,legacy landing page
+/sub,/,legacy landing page
+/int,/,legacy landing page
+/c4,/,legacy landing page
+/connect,/,legacy landing page
+/retailtest,/retail-system,test page to canonical retail solution
+/testabout,/about,test page to canonical about
+/testregister,/register,test page to canonical register
+/test,/contact,test page to canonical contact
+/hr2,/hr,duplicate HR page
+/retais-erp,/retail-system,misspelled retail page
+/pages/PageEN,/,legacy page endpoint
+/pages/PageAR,/,legacy page endpoint
+/pages/my-page-6487,/,legacy page endpoint
+/project/PageAR,/,legacy project page
+/lms,/jobs,broken footer training link placeholder
+/%D8%A7%D9%84%D8%AF%D8%B9%D8%AC,/contact,broken malformed consultation link
+/blog/general-blog/p-style%3Dtext-align-right%3Bspan-style%3Dcolor-000000%3Bstrong%D9%85%D9%86%D8%A7%D8%B3%D8%A8-%D9%84%D8%B4%D8%B1%D9%83%D8%AA%D9%83-erp-system-%D9%83%D9%8A%D9%81%D9%8A%D8%A9-%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1-strong-span-p,/blog/general-blog/%D9%83%D9%8A%D9%81-%D8%AA%D8%AE%D8%AA%D8%A7%D8%B1-%D9%86%D8%B8%D8%A7%D9%85-erp,malformed slug cleanup
+/blog/general-blog/h4-style%3Dtext-align-center%3Bspan-style%3Dcolor-000000%3Bstrong-%D9%88%D8%A3%D9%8A%D9%87%D9%85%D8%A7-%D8%A7%D9%84%D8%A3%D9%86%D8%B3%D8%A8-%D9%84%D8%B9%D9%85%D9%84%D9%83-erp%D9%88crm%D9%85%D8%A7-%D9%87%D9%88-%D8%A7%D9%84%D9%81%D8%B1%D9%82-%D8%A8%D9%8A%D9%86-strong-span-h4,/blog/general-blog/%D8%A7%D9%84%D9%81%D8%B1%D9%82-%D8%A8%D9%8A%D9%86-erp-%D9%88-crm,malformed slug cleanup
+/blog/erpnext/h2-style%3Dtext-align-right%3Bstrong%D9%84%D8%AA%D8%B7%D9%88%D9%8A%D8%B1-%D9%86%D8%B8%D8%A7%D9%85-%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%AC%D9%88%D8%AF%D8%A9-%D9%85%D8%B1%D9%86-%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D9%85%D8%B1%D9%88%D9%86%D8%A9-%D9%88%D8%A7%D9%84%D9%83%D9%81%D8%A7%D8%A1%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9-erpnext-strong-h2,/blog/erpnext/%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D8%AC%D9%88%D8%AF%D8%A9-%D8%A7%D9%84%D8%AA%D8%B5%D9%86%D9%8A%D8%B9-erpnext,malformed slug cleanup
+/blog/erpnext/app-versions-%60%60%60-%7B-builder-1123-ecommerce-integrations-1201-erpnext-15393-frappe-15451-hr-policy-,/blog/erpnext,malformed slug cleanup
